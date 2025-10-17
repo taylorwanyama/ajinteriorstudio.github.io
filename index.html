@@ -582,7 +582,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: 1fr; 
             gap: 2.5rem;
             margin-bottom: 3rem;
         }
@@ -1090,6 +1090,24 @@ header {
     background-color: var(--red); /* This uses your existing var(--red) */
     color: var(--white);
     /* ... rest of your button styles ... */
+}   
+
+/* NEW STYLES FOR IMAGE CONTAINERS */
+.project-image {
+    width: 100%;
+    height: 220px; /* Set a fixed height for consistency */
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the area without stretching */
+    transition: transform 0.4s;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
     </style>
@@ -1365,53 +1383,90 @@ header {
             <button class="filter-btn" onclick="filterProjects('joinery')">Joinery</button>
         </div>
 
-        <div class="projects-grid" id="projects-grid">
-            <div class="project-card" data-category="gypsum-ceiling">
-                <div class="project-image"><i class="fas fa-layer-group"></i></div>
-                <div class="project-title">Modern Gypsum Ceiling - Westlands</div>
-            </div>
+        <div class="project-card" data-category="gypsum-ceiling">
+    <div class="project-image">
+        <img src="pic1.jpg" alt="Westlands Ceiling"> 
+    </div>
+    
+</div>
+
+<div class="project-card" data-category="gypsum-ceiling">
+    <div class="project-image">
+        <img src="pic4.jpg" alt="Runda Gypsum Work"> 
+    </div>
+    <div class="project-title">Custom Gypsum Design - Runda</div>
+</div>
+
+<div class="project-card" data-category="gypsum-ceiling">
+    <div class="project-image">
+        <img src="pic5.jpg" alt="Kilimani Ceiling Project"> 
+    </div>
+    <div class="project-title">Luxury Ceiling - Kilimani</div>
+</div>
             <div class="project-card" data-category="home-decor">
-                <div class="project-image"><i class="fas fa-sofa"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Luxury Home Decor - Karen</div>
             </div>
             <div class="project-card" data-category="painting">
-                <div class="project-image"><i class="fas fa-paint-brush"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Contemporary Painting - Kilimani</div>
             </div>
             <div class="project-card" data-category="flooring">
-                <div class="project-image"><i class="fas fa-tiles"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Premium Flooring - Nairobi CBD</div>
             </div>
             <div class="project-card" data-category="acoustic-ceiling">
-                <div class="project-image"><i class="fas fa-volume-mute"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Acoustic Solutions - Lavington</div>
             </div>
             <div class="project-card" data-category="joinery">
-                <div class="project-image"><i class="fas fa-door-open"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Custom Joinery - Upperhill</div>
             </div>
             <div class="project-card" data-category="special-effects">
-                <div class="project-image"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Special Effects Design - Runda</div>
             </div>
             <div class="project-card" data-category="landscaping">
-                <div class="project-image"><i class="fas fa-leaf"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Outdoor Landscaping - Muthaiga</div>
             </div>
             <div class="project-card" data-category="wallpaper">
-                <div class="project-image"><i class="fas fa-image"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Wallpaper Installation - South B</div>
             </div>
             <div class="project-card" data-category="gypsum-installation">
-                <div class="project-image"><i class="fas fa-cubes"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Gypsum Partition - Riverside</div>
             </div>
             <div class="project-card" data-category="3d-renders">
-                <div class="project-image"><i class="fas fa-cube"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">3D Visualization - Westlands</div>
             </div>
             <div class="project-card" data-category="fitting">
-                <div class="project-image"><i class="fas fa-hammer"></i></div>
+                <div class="project-image">
+                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                </div>
                 <div class="project-title">Expert Fitting Services - Parklands</div>
             </div>
         </div>
