@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJ Interior Studio - Transform Your Space</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --red: #CE1126;
+            --green: #007A5E;
+            --light-bg: #f8f8f8;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.15);
+            --shadow-sm: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--red);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--black);
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--red);
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            margin: 0 auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border-left: 4px solid var(--red);
+            border-radius: 0 5px 5px 0;
+            min-width: 220px;
+            display: none;
+            flex-direction: column;
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: flex;
+        }
+
+        .dropdown-menu a {
+            padding: 0.9rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--light-bg);
+            color: var(--red);
+            border-left: 3px solid var(--red);
+            padding-left: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, var(--red), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--red), #a00d1f);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--green), #005a45);
+            color: var(--white);
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-tertiary {
+            background: var(--black);
+            color: var(--white);
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-tertiary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            background: var(--text-dark);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(206,17,38,0.4));
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 5%;
+            color: var(--white);
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.8s ease;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .hero-content h1 span {
+            color: var(--red);
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            animation: slideUp 0.8s ease 0.2s both;
+            font-weight: 500;
+            max-width: 600px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 5%;
+            display: flex;
+            gap: 12px;
+            z-index: 5;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid var(--white);
+        }
+
+        .dot.active {
+            background: var(--red);
+            transform: scale(1.3);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 80px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--black);
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(90deg, var(--red), var(--green));
+        }
+
+        section h2 + p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            max-width: 600px;
+        }
+
+        section h3 {
+            font-size: 1.8rem;
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* ===== SERVICES OVERVIEW ===== */
+        .services-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem 1.8rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s;
+            cursor: pointer;
+            border-top: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--red);
+        }
+
+        .service-card:nth-child(even):hover {
+            border-top: 4px solid var(--green);
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--red), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-card h4 {
+            color: var(--black);
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--red), var(--black));
+            color: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+        }
+
+        .metric-card:nth-child(2) {
+            background: linear-gradient(135deg, var(--green), var(--black));
+        }
+
+        .metric-card:nth-child(3) {
+            background: linear-gradient(135deg, var(--red), var(--green));
+        }
+
+        .metric-card h3 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 900;
+        }
+
+        .metric-card p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .about-content {
+            margin: 3rem 0;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            color: var(--text-light);
+        }
+
+        .why-choose {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .why-choose-text ul {
+            list-style: none;
+        }
+
+        .why-choose-text li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .why-choose-text li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--red);
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+
+        .why-choose-image {
+            background: linear-gradient(135deg, var(--red), var(--green));
+            height: 350px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== SERVICES DETAILED ===== */
+        .service-detail {
+            margin: 4rem 0;
+            padding: 3rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            border-left: 5px solid var(--red);
+            transition: all 0.4s;
+        }
+
+        .service-detail:nth-child(even) {
+            border-left: 5px solid var(--green);
+        }
+
+        .service-detail:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+            direction: rtl;
+        }
+
+        .service-detail:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .service-detail:hover {
+            box-shadow: var(--shadow);
+            transform: translateX(10px);
+        }
+
+        .service-detail-image {
+            background: linear-gradient(135deg, var(--red), var(--green)); /* Keep for gradient border effect, but images will cover it */
+            height: 400px;
+            border-radius: 15px;
+            display: flex;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        
+        .service-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+       .service-detail h4 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            color: var(--black);
+            font-weight: 900;
+        }
+
+        .service-detail p {
+            color: var(--text-light);
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        /* ===== PROJECTS SECTION ===== */
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.9rem 1.8rem;
+            border: 2px solid var(--black);
+            background: var(--white);
+            color: var(--black);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: scale(1.08);
+            box-shadow: var(--shadow);
+            border: 3px solid var(--red);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--red), var(--green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--white);
+        }
+
+        .project-title {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--black);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .cta-form-section {
+            background: linear-gradient(135deg, var(--green), var(--black));
+            color: var(--white);
+            padding: 3.5rem 2rem;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--red);
+        }
+
+        .cta-form-content {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-form-content h3 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            font-weight: 900;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.95);
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 0 0 3px var(--red);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            grid-column: 1 / -1;
+            margin-top: 1.5rem;
+        }
+
+        .form-submit button {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .form-submit button:hover {
+            background: #a00d1f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(206,17,38,0.3);
+        }
+
+        /* ===== CONSULTANCY SECTION ===== */
+        .consultancy-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .consultancy-form {
+            background: var(--light-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--red);
+        }
+
+        .consultancy-info {
+            padding: 2.5rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--green);
+        }
+
+        .consultancy-info h3 {
+            margin-bottom: 2rem;
+            color: var(--black);
+            font-size: 1.8rem;
+        }
+
+        .contact-detail {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .contact-detail:last-child {
+            border-bottom: none;
+        }
+
+        .contact-detail i {
+            font-size: 1.8rem;
+            color: var(--red);
+            min-width: 35px;
+            margin-top: 0.3rem;
+        }
+
+        .contact-detail a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .contact-detail a:hover {
+            color: var(--red);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .contact-link i {
+            font-size: 2.5rem;
+            color: var(--red);
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover i {
+            color: var(--green);
+            transform: scale(1.2);
+        }
+
+        .contact-link:hover {
+            transform: translateY(-10px);
+            color: var(--black);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--black), #1a1a1a);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            border-top: 5px solid var(--red);
+            font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1.2rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                height: 500px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 2.5rem;
+            }
+
+            .consultancy-container,
+            .why-choose,
+            .service-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .service-detail:nth-child(even) {
+                direction: ltr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                gap: 1.5rem;
+            }
+
+            section {
+                padding: 50px 1.5rem;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+            }
+        }
+        .floating-buttons {
+            position: fixed;
+            bottom: 40px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+        }
+
+       .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+        }
+
+        .whatsapp-btn {
+            background: var(--green);
+            color: var(--white);
+        }
+
+       .whatsapp-btn:hover {
+            transform: scale(1.15);
+            background: #005a45;
+        }
+
+        .chat-btn {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.15);
+            background: #a00d1f;
+        }
+
+        /* Container for the 3-column grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px;
+            margin-top: 50px;
+            padding: 0 50px; 
+        }
+
+        /* Styling for each individual service card */
+        .service-card {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee; /* Add a subtle border */
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 180px; /* Fixed height for consistent card size */
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .service-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the container */
+        }
+
+       .service-card h4 {
+           color: var(--red);
+           margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+    @media (max-width: 992px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets/mid-size screens */
+    }
+    }
+    @media (max-width: 576px) {
+    .services-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile screens */
+        padding: 0 20px;
+    }
+}
+   /* Container for the image (Ensure this is being used around the image) */
+.why-choose-image {
+    /* Define a fixed height for the image area */
+    height: 450px !important; 
+    
+    /* Ensure nothing spills out */
+    overflow: hidden !important; 
+    
+    /* Display as a block element */
+    display: block !important; 
+    
+    /* Optional: Keep your desired styling */
+    border-radius: 10px; 
+    box-shadow: var(--shadow-sm); 
+}
+
+/* Control how the image behaves inside the container */
+.why-choose-image img {
+    /* Make the image always fill 100% of the container's width and height */
+    width: 100% !important;
+    height: 100% !important;
+    
+    /* KEY PROPERTY: This ensures the image covers the entire area 
+       without stretching, cropping any excess. */
+    object-fit: cover !important; 
+}
+
+     /* 1. ULTRA-DARK HEADER/NAVIGATION BAR */
+header {
+    /* Set the background to a near-black color for maximum match */
+    background: #050505; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7); /* Increased shadow for depth */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid var(--red); /* Keeps the red accent */
+}
+
+/* Ensure the Logo and Navigation Links are white for high contrast */
+.logo {
+    color: var(--white); 
+}
+
+.nav-links a {
+    color: var(--white); 
+    font-weight: 600;
+    transition: all 0.3s;
+    position: relative;
+}
+
+/* Set the Dropdown Menu background to a slightly lighter dark color for contrast */
+.dropdown-menu {
+    background: #151515; /* A slightly lighter dark for contrast */
+    border-left: 4px solid var(--red);
+    border-radius: 0 5px 5px 0;
+    /* Ensure links inside are white */
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dropdown-menu a {
+    color: var(--white); 
+}
+
+.dropdown-menu a:hover {
+    background: #333333; /* A slight hover contrast */
+    color: var(--red);
+}
+
+
+/* 2. ULTRA-DARK HERO SECTION (Assuming ID is #hero) */
+#hero {
+    /* Set the section background to the near-black color */
+    background-color: #050505; 
+}
+
+/* Ensure all text in the hero section is white */
+#hero h1, 
+#hero p, 
+#hero .hero-content {
+    color: var(--white); 
+}
+
+/* If you have a semi-transparent overlay over the hero image, adjust its color */
+.hero-overlay {
+    background: rgba(5, 5, 5, 0.8); /* Near-black transparent overlay */
+}
+
+/* 3. CONFIRM RED BUTTON */
+/* Ensure your "Book a Consultancy" button maintains the red color */
+.cta-button {
+    background-color: var(--red); /* This uses your existing var(--red) */
+    color: var(--white);
+    /* ... rest of your button styles ... */
+}
+
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="https://i.imgur.com/IyL3hzo.jpeg" alt="AJ Interior Studio" style="height: 70px; width: auto;">
+                    <span>AJ Interior Studio</span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('home')">Home</a></li>
+                <li><a onclick="scrollToSection('about')">About Us</a></li>
+                <li class="dropdown">
+                    <a>Services</a>
+                    <div class="dropdown-menu">
+                        <a onclick="scrollToService('gypsum-ceiling')">Gypsum Ceiling</a>
+                        <a onclick="scrollToService('acoustic-ceiling')">Acoustic Ceiling</a>
+                        <a onclick="scrollToService('painting')">Painting</a>
+                        <a onclick="scrollToService('special-effects')">Special Effects</a>
+                        <a onclick="scrollToService('fitting')">Fitting</a>
+                        <a onclick="scrollToService('home-decor')">Home Decor</a>
+                        <a onclick="scrollToService('wallpaper')">Wallpaper Installation</a>
+                        <a onclick="scrollToService('landscaping')">Landscaping</a>
+                        <a onclick="scrollToService('wainscotting')">Wainscotting</a>
+                        <a onclick="scrollToService('flooring')">Flooring</a>
+                        <a onclick="scrollToService('gypsum-installation')">Gypsum Installation</a>
+                        <a onclick="scrollToService('3d-renders')">3D Renders & Designing</a>
+                        <a onclick="scrollToService('joinery')">Joinery</a>
+                    </div>
+                </li>
+                <li><a onclick="scrollToSection('projects')">Projects</a></li>
+                <li><a onclick="scrollToSection('contact')">Contact Us</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('consultancy')">Book Consultancy</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-slide active">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&h=700&fit=crop" alt="Modern Interior Design">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h1>Your Space. <span>Our Masterpiece.</span></h1>
+                    <p>Designing and building signature environments with meticulous craftsmanship.</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1400&h=700&fit=crop" alt="Premium Interiors">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h1>7+ Years of Design <span>Excellence.</span></h1>
+                    <p>Premium interiors delivered on time, within budget, and guaranteed for life.</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="pg1.PNG" alt="Creative Spaces">
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h1>Turning Your <span>Vision</span> Into Reality.</h1>
+            <p>A bespoke consultation process that captures your unique style and ambition.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </section>
+
+    
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Masters of Interior Design since 2018.</p>
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>100+</h3>
+                <p>Projects Completed</p>
+            </div>
+            <div class="metric-card">
+                <h3>7+</h3>
+                <p>Years of Excellence</p>
+            </div>
+            <div class="metric-card">
+                <h3>50+</h3>
+                <p>Satisfied Clients</p>
+            </div>
+        </div>
+        <div class="about-content">
+            <p>AJ Interior Studio a trusted design partner for creating exceptional living and working environments. With 7+ years of expertise, we seamlessly merge innovative design with meticulous craftsmanship to deliver spaces that are breathtaking, functional, and modern</p>
+            <p>Our certified team guarantees unwavering quality and on-time, on-budget project delivery.</p>
+        </div>
+        <div class="why-choose">
+            <div class="why-choose-text">
+                <h3>Why Choose AJ Interior Studio?</h3>
+                <ul>
+                    <li>7+ years refining our craft for flawless execution.</li>
+                    <li>We use only premium, durable materials backed by quality guarantees.</li>
+                    <li>A personalized, collaborative process that puts your style first.</li>
+                    <li>Transparent, fixed-price quotes with no hidden costs.</li>
+                    <li>We promise and deliver on-time project completion, minimizing disruption.</li>
+                    <li>Our team consists of experienced and professional certified designers and craftsmen dedicated to your project.</li>
+                    <li>We offer comprehensive post-project support and maintenance for long-term peace of mind.</li>
+                </ul>
+            </div>
+            <div class="why-choose-image">
+                <img src="https://i.imgur.com/mSn4l86.png" alt="Why image" >
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES DETAILED -->   
+    <section id="services-detailed">
+    <h2>Services</h2>
+    <p>Expert solutions for every interior design need</p>
+
+    <div class="services-grid"> 
+        
+        <div id="gypsum-ceiling" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/Cj6e3bI.png" alt="Gypsum Ceiling">
+            </div>
+            <h4>Gypsum Ceiling</h4>
+            <p>Design and install stunning, modern gypsum ceilings that integrate custom lighting and architectural features. Our installations provide a seamless finish and allow for creative designs.</p>
+        </div>
+
+        <div id="acoustic-ceiling" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/HMDHf7K.png" alt="Acoustic Ceiling">
+            </div>
+            <h4>Acoustic Ceiling</h4>
+            <p>Create a quieter, more comfortable environment with our acoustic ceiling installations. Ideal for offices and commercial spaces, these ceilings effectively absorb sound.</p>
+        </div>
+
+        <div id="painting" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/eTm3Dvh.png" alt="Professional Painting">
+            </div>
+            <h4>Professional Painting</h4>
+            <p>Transform your walls with our expert painting services using premium quality paints and advanced techniques. We deliver flawless results that enhance your space's aesthetic.</p>
+        </div>
+
+        <div id="special-effects" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/ey6pBmW.png" alt="Special Effects">
+            </div>
+            <h4>Special Effects</h4>
+            <p>Add uniqueness to your interiors with our special effects designs. We create stunning textured finishes, metallic effects, and custom patterns.</p>
+        </div>
+
+        <div id="fitting" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/ybAoPQO.png" alt="Cabinets & Fitting">
+            </div>
+            <h4>Cabinets & Fitting</h4>
+            <p>Our fitting services include expert installation of doors, windows, fixtures, and fittings with meticulous attention to detail and high quality.</p>
+        </div>
+
+        <div id="home-decor" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/BzRbsRq.png" alt="Home Decor">
+            </div>
+            <h4>Home Decor</h4>
+            <p>Complete home decoration solutions that reflect your personal style. From furniture selection to accessory placement, we create cohesive designs.</p>
+        </div>
+        
+        <div id="wallpaper" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/JKfwW12.png" alt="Wallpaper Installation">
+            </div>
+            <h4>Wallpaper Installation</h4>
+            <p>Choose from an extensive range of wallpaper designs and textures. Our expert installers ensure perfect alignment and smooth application for flawless results.</p>
+        </div>
+
+        <div id="landscaping" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/xflaAXN.png" alt="Landscaping">
+            </div>
+            <h4>Landscaping</h4>
+            <p>Extend your design vision outdoors with our comprehensive landscaping services, featuring gardens, pathways, and hardscaping elements.</p>
+        </div>
+
+        <div id="wainscotting" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/MMkK7EB.png" alt="Wainscotting">
+            </div>
+            <h4>Wainscotting</h4>
+            <p>Add elegance and character to your walls with professional wainscotting installation. This classic design element adds depth and sophistication.</p>
+        </div>
+
+        <div id="flooring" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/oVA5uoJ.png" alt="Flooring Services">
+            </div>
+            <h4>Flooring Services</h4>
+            <p>Discover our extensive range of flooring options from hardwood to tile. We provide expert installation services with attention to detail and durability.</p>
+        </div>
+
+        <div id="gypsum-installation" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/2UT9kWe.png" alt="Gypsum Installation">
+            </div>
+            <h4>Gypsum Installation</h4>
+            <p>Professional gypsum board installation for walls and partitions that provide durability and flexibility in design, ready for painting or wallpapering.</p>
+        </div>
+
+        <div id="3d-renders" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/XpAwDTn.png" alt="3D Renders & Designing">
+            </div>
+            <h4>3D Renders & Designing</h4>
+            <p>Visualize your dream space before we begin construction with our professional 3D rendering services, helping you see exactly how your space will look.</p>
+        </div>
+
+        <div id="joinery" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/ZwoG5tG.png" alt="Custom Joinery">
+            </div>
+            <h4>Custom Joinery</h4>
+            <p>Custom-built joinery solutions including cabinets, shelving, and built-in furniture designed specifically for your space by skilled carpenters.</p>
+        </div>
+
+        <div id="office" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/W4YDBmw.png" alt="Office Partitioning">
+            </div>
+            <h4>Office Partitioning</h4>
+            <p>Do you want a perfectly designed and visually appealing office? AJ Interior Studio are your go-to service providers in that sphere.</p>
+        </div>
+        
+        <div id="home" class="service-card">
+            <div class="service-card-image">
+                <img src="https://i.imgur.com/NBe1YPZ.png" alt="Home & Office Renovation">
+            </div>
+            <h4>Home & Office Renovation</h4>
+            <p>Transform your space with our expert renovation services, tailored to meet your specific needs and preferences.</p>
+        </div>
+    </div>
+</section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <p>Showcase of our finest work across diverse interior design styles</p>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+            <button class="filter-btn" onclick="filterProjects('gypsum-ceiling')">Gypsum Ceiling</button>
+            <button class="filter-btn" onclick="filterProjects('acoustic-ceiling')">Acoustic Ceiling</button>
+            <button class="filter-btn" onclick="filterProjects('painting')">Painting</button>
+            <button class="filter-btn" onclick="filterProjects('special-effects')">Special Effects</button>
+            <button class="filter-btn" onclick="filterProjects('fitting')">Fitting</button>
+            <button class="filter-btn" onclick="filterProjects('home-decor')">Home Decor</button>
+            <button class="filter-btn" onclick="filterProjects('wallpaper')">Wallpaper</button>
+            <button class="filter-btn" onclick="filterProjects('landscaping')">Landscaping</button>
+            <button class="filter-btn" onclick="filterProjects('wainscotting')">Wainscotting</button>
+            <button class="filter-btn" onclick="filterProjects('flooring')">Flooring</button>
+            <button class="filter-btn" onclick="filterProjects('gypsum-installation')">Gypsum Install</button>
+            <button class="filter-btn" onclick="filterProjects('3d-renders')">3D Renders</button>
+            <button class="filter-btn" onclick="filterProjects('joinery')">Joinery</button>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+            <div class="project-card" data-category="gypsum-ceiling">
+                <div class="project-image"><i class="fas fa-layer-group"></i></div>
+                <div class="project-title">Modern Gypsum Ceiling - Westlands</div>
+            </div>
+            <div class="project-card" data-category="home-decor">
+                <div class="project-image"><i class="fas fa-sofa"></i></div>
+                <div class="project-title">Luxury Home Decor - Karen</div>
+            </div>
+            <div class="project-card" data-category="painting">
+                <div class="project-image"><i class="fas fa-paint-brush"></i></div>
+                <div class="project-title">Contemporary Painting - Kilimani</div>
+            </div>
+            <div class="project-card" data-category="flooring">
+                <div class="project-image"><i class="fas fa-tiles"></i></div>
+                <div class="project-title">Premium Flooring - Nairobi CBD</div>
+            </div>
+            <div class="project-card" data-category="acoustic-ceiling">
+                <div class="project-image"><i class="fas fa-volume-mute"></i></div>
+                <div class="project-title">Acoustic Solutions - Lavington</div>
+            </div>
+            <div class="project-card" data-category="joinery">
+                <div class="project-image"><i class="fas fa-door-open"></i></div>
+                <div class="project-title">Custom Joinery - Upperhill</div>
+            </div>
+            <div class="project-card" data-category="special-effects">
+                <div class="project-image"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <div class="project-title">Special Effects Design - Runda</div>
+            </div>
+            <div class="project-card" data-category="landscaping">
+                <div class="project-image"><i class="fas fa-leaf"></i></div>
+                <div class="project-title">Outdoor Landscaping - Muthaiga</div>
+            </div>
+            <div class="project-card" data-category="wallpaper">
+                <div class="project-image"><i class="fas fa-image"></i></div>
+                <div class="project-title">Wallpaper Installation - South B</div>
+            </div>
+            <div class="project-card" data-category="gypsum-installation">
+                <div class="project-image"><i class="fas fa-cubes"></i></div>
+                <div class="project-title">Gypsum Partition - Riverside</div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image"><i class="fas fa-cube"></i></div>
+                <div class="project-title">3D Visualization - Westlands</div>
+            </div>
+            <div class="project-card" data-category="fitting">
+                <div class="project-image"><i class="fas fa-hammer"></i></div>
+                <div class="project-title">Expert Fitting Services - Parklands</div>
+            </div>
+        </div>
+
+        <div class="cta-form-section">
+            <div class="cta-form-content">
+                <h3>Have a project in mind?</h3>
+                <p>Let's discuss how we can bring your vision to life</p>
+            </div>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="e.g. +254 712 345 678" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Project Subject</label>
+                        <input type="text" placeholder="Describe your project" required>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit">Send Inquiry</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- CONSULTANCY SECTION -->
+    <section id="consultancy">
+        <h2>Book A Consultancy</h2>
+        <p>Get personalized design advice from our expert team</p>
+        
+        <div class="consultancy-container">
+            <div class="consultancy-form">
+                <h3>Request A Consultation</h3>
+                <form onsubmit="handleConsultancy(event)">
+                    <div class="form-group full">
+                        <label>Your Email Address</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Subject</label>
+                        <input type="text" placeholder="How can we help you?" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Your Budget</label>
+                        <input type="text" placeholder="What's your budget?" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Tell Us About Your Project</label>
+                        <textarea placeholder="Describe your project in detail..." required></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="consultancy-info">
+                <h3>Why Consult With Us?</h3>
+                <p style="margin-bottom: 2rem; color: var(--text-light);">Our expert consultants will help you transform your vision into reality with personalized guidance and professional insights.</p>
+                
+                <div class="contact-detail">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 0.5rem;">Phone Numbers</strong>
+                        <a href="tel:+254729747047">+254 729 747 047</a><br>
+                        
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 0.5rem;">Email Address</strong>
+                        <a href="mailto:ajinteriordesigners744@gmail.com">ajinteriordesigners744@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 0.5rem;">Office Location</strong>
+                        <p style="color: var(--text-light);">White House Nakuru, Nakuru, Rift Valley province, Nairobi, Kenya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <p>Connect with us on your preferred platform</p>
+        
+        <div class="contact-links">
+            <a href="mailto:ajinteriordesigners744@gmail.com" class="contact-link">
+                <i class="fas fa-envelope"></i>
+                <span>Email Us</span>
+            </a>
+            <a href="https://www.instagram.com/ambromax_designers?igsh=MTZ5eXR0MHJjaXRlag==" class="contact-link" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://www.facebook.com/share/1AkZd6oCy8/" class="contact-link" target="_blank">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="https://www.tiktok.com/@ajinteriordesigners744?_t=ZM-90cHKXL0aGO&_r=1" class="contact-link" target="_blank">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 AJ Interior Studio. All rights reserved. | Transforming Spaces, Creating Experiences</p>
+    </footer>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function autoSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            updateSlide();
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            updateSlide();
+        }
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        setInterval(autoSlide, 6000);
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToService(id) {
+            const element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you! We will contact you shortly.');
+            e.target.reset();
+        }
+
+        function handleConsultancy(e) {
+            e.preventDefault();
+            alert('Thank you! Your consultancy request has been received. We will be in touch soon.');
+            e.target.reset();
+        }
+    </script> 
+    
+    
+    <!--Start of Tawk.to Script-->
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/68f1f32d0524d4194f531df2/1j7ohrqt2';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+    <div class="floating-buttons">
+        <a href="https://wa.me/254729747047" class="floating-btn whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+</body>
+</html>
