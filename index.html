@@ -809,6 +809,65 @@
             font-weight: 600;
         }
 
+        /* CORRECTED MOBILE TAB NAVIGATION */
+@media (max-width: 768px) {
+    body.mobile-tab-mode section:not(.hero) {
+        display: none !important;
+    }
+    
+    body.mobile-tab-mode section.active-section {
+        display: block !important;
+    }
+    
+    body.mobile-tab-mode footer {
+        display: none !important;
+    }
+}
+
+    @media (min-width: 769px) {
+        body.mobile-tab-mode section:not(.hero) {
+            display: block !important;
+        }
+    
+        body.mobile-tab-mode footer {
+            display: block !important;
+        }
+    }
+
+        .back-to-top-btn {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .back-to-top-btn:hover {
+            background: #a00d1f;
+        }
+    }
+
+
+    @media (min-width: 769px) {
+        body.mobile-tab-mode section:not(.hero) {
+        display: block !important;
+    }
+
+    body.mobile-tab-mode section:not(.hero).active-section {
+        display: block !important;
+    }
+
+    body.mobile-tab-mode footer {
+        display: block !important;
+    }
+}
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hamburger {
@@ -2125,7 +2184,11 @@
 
         function scrollToSection(id) {
             const element = document.getElementById(id);
-            element.scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 768) {
+                enableMobileTabMode(id);
+            } else {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function scrollToService(id) {
@@ -2171,13 +2234,22 @@
     // On desktop, dropdown works via CSS hover
 }
 
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
+    // Close menu when link is clicked & enable mobile tab mode
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
             document.querySelector('.nav-links').classList.remove('active');
             document.querySelector('.hamburger').classList.remove('active');
-        });
+        
+           // Enable mobile tab mode only on mobile
+            if (window.innerWidth <= 768) {
+                const onclickAttr = e.target.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes('scrollToSection')) {
+                enableMobileTabMode(onclickAttr);
+            }
+        }
     });
+});
+
     function openServicesSidebar() {
         document.getElementById('servicesSidebar').classList.add('active');
         document.getElementById('sidebarOverlay').classList.add('active');
@@ -2187,10 +2259,54 @@
         document.getElementById('servicesSidebar').classList.remove('active');
         document.getElementById('sidebarOverlay').classList.remove('active');
     }
-    </script> 
+
+    function enableMobileTabMode(sectionId) {
+    if (window.innerWidth > 768) return;
     
+    document.body.classList.add('mobile-tab-mode');
     
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active-section');
+    });
     
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.classList.add('active-section');
+        addBackButton(section);
+        
+        setTimeout(() => {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+}
+
+function addBackButton(section) {
+    const existingBtn = section.querySelector('.back-to-top-btn');
+    if (existingBtn) existingBtn.remove();
+    
+    const backBtn = document.createElement('button');
+    backBtn.className = 'back-to-top-btn';
+    backBtn.innerHTML = '← Back to Home';
+    backBtn.onclick = (e) => {
+        e.preventDefault();
+        document.body.classList.remove('mobile-tab-mode');
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    
+    section.insertBefore(backBtn, section.firstChild);
+}
+
+// Disable tab mode on window resize (when going to desktop)
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        document.body.classList.remove('mobile-tab-mode');
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
+    }
+});
+    </script>
+
+
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
