@@ -1976,26 +1976,26 @@
                 <h3>Have a project in mind?</h3>
                 <p>Let's discuss how we can bring your vision to life</p>
             </div>
-            <form onsubmit="handleSubmit(event)">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Your Name</label>
-                        <input type="text" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" placeholder="e.g. +254 712 345 678" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Project Subject</label>
-                        <input type="text" placeholder="Describe your project" required>
-                    </div>
-                    <div class="form-submit">
-                        <button type="submit">Send Inquiry</button>
+            <form action="https://formspree.io/f/mblzweyb" method="POST"> method="POST">
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="e.g. +254 712 345 678" required>
+        </div>
+        <div class="form-group">
+            <label>Project Subject</label>
+            <input type="text" name="subject" placeholder="Describe your project" required>
+        </div>
+        <div class="form-submit">
+            <button type="submit">Send Inquiry</button>
                     </div>
                 </div>
             </form>
@@ -2031,6 +2031,7 @@
         <button type="submit">Send Message</button>
     </div>
 </form>
+            </div>
 
             <div class="consultancy-info">
                 <h3>Why Consult With Us?</h3>
@@ -2150,11 +2151,7 @@
             e.target.reset();
         }
 
-        function handleConsultancy(e) {
-            e.preventDefault();
-            alert('Thank you! Your consultancy request has been received. We will be in touch soon.');
-            e.target.reset();
-        }
+        
         // Hamburger Menu Toggle
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -2162,6 +2159,13 @@
             navLinks.classList.toggle('active');
             hamburger.classList.toggle('active');
         }
+
+        function toggleServicesDropdown() {
+            if (window.innerWidth <= 768) {
+                openServicesSidebar();
+        }
+    // On desktop, dropdown works via CSS hover
+}
 
         // Close menu when link is clicked
         document.querySelectorAll('.nav-links a').forEach(link => {
