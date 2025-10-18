@@ -31,16 +31,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== HEADER & NAVIGATION ===== */
-        header {
-            background: var(--white);
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--red);
-        }
-
+        
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -64,6 +55,36 @@
             color: var(--red);
             font-size: 2rem;
         }
+        /* Hamburger Menu - ADD THIS */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
 
         .nav-links {
             display: flex;
@@ -72,14 +93,7 @@
             margin: 0 auto;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-        }
+        
 
         .nav-links a:after {
             content: '';
@@ -100,21 +114,7 @@
             position: relative;
         }
 
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--white);
-            border-left: 4px solid var(--red);
-            border-radius: 0 5px 5px 0;
-            min-width: 220px;
-            display: none;
-            flex-direction: column;
-            margin-top: 0.5rem;
-            box-shadow: var(--shadow);
-            max-height: 400px;
-            overflow-y: auto;
-        }
+        
 
         .dropdown:hover .dropdown-menu {
             display: flex;
@@ -144,7 +144,7 @@
         }
 
         .btn {
-            padding: 0.8rem 1.5rem;
+            padding: 0.5rem 0.3rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -210,7 +210,7 @@
         /* ===== HERO SECTION ===== */
         .hero {
             position: relative;
-            height: 700px;
+            height: 600px;  /* Changed from 700px */
             overflow: hidden;
         }
 
@@ -347,26 +347,7 @@
             margin-bottom: 4rem;
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background: var(--white);
-            padding: 2.5rem 1.8rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.4s;
-            cursor: pointer;
-            border-top: 4px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
+        
         .service-card:hover {
             transform: translateY(-15px);
             box-shadow: var(--shadow);
@@ -580,11 +561,34 @@
             color: var(--red);
         }
 
+        /* REVISED: 3-column responsive grid for projects */
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr; 
+            /* Default: 3 columns for desktop, with min width of 300px for responsiveness */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 2.5rem;
             margin-bottom: 3rem;
+            /* No margin-top added here to preserve spacing and background color */
+        }
+
+        /* Responsive adjustments for the projects grid (OPTIONAL BUT RECOMMENDED) */
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .projects-grid {
+                /* 1 column on mobile screens */
+                grid-template-columns: 1fr; 
+            }
+            .hero {
+                height: 350px;
+            }
         }
 
         .project-card {
@@ -602,7 +606,6 @@
             box-shadow: var(--shadow);
             border: 3px solid var(--red);
         }
-
         .project-image {
             width: 100%;
             height: 220px;
@@ -612,8 +615,14 @@
             justify-content: center;
             font-size: 3.5rem;
             color: var(--white);
+            overflow: hidden;
         }
-
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
         .project-title {
             padding: 1.5rem;
             text-align: center;
@@ -824,25 +833,40 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .navbar {
-                flex-wrap: wrap;
-                gap: 1rem;
-                padding: 1rem;
+            .hamburger {
+                display: flex;
             }
+            
+           .nav-links {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #050505;
+            flex-direction: column;
+            gap: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            border-bottom: 3px solid var(--red);
+        }
 
-            .nav-links {
-                gap: 1.2rem;
-                font-size: 0.9rem;
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
+        .nav-links.active {
+            max-height: 500px;
+        }
+        .nav-links li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            width: 100%;
+            text-align: center;
+        }
 
-            .hero {
-                height: 500px;
-            }
-
-            .hero-content h1 {
+        .navbar {
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        .hero-content h1 {
                 font-size: 2.5rem;
             }
 
@@ -952,11 +976,7 @@
             border: 1px solid #eee; /* Add a subtle border */
         }
 
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-        }
-
+        
         .service-card-image {
             width: 100%;
             height: 180px; /* Fixed height for consistent card size */
@@ -985,73 +1005,56 @@
             overflow: hidden;
         }
 
-    @media (max-width: 992px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets/mid-size screens */
-    }
-    }
+    
     @media (max-width: 576px) {
-    .services-grid {
-        grid-template-columns: 1fr; /* 1 column on mobile screens */
-        padding: 0 20px;
+        .services-grid {
+            grid-template-columns: 1fr;
+            padding: 0 20px;
+        }
     }
-}
-   /* Container for the image (Ensure this is being used around the image) */
-.why-choose-image {
-    /* Define a fixed height for the image area */
-    height: 450px !important; 
-    
-    /* Ensure nothing spills out */
-    overflow: hidden !important; 
-    
-    /* Display as a block element */
-    display: block !important; 
-    
-    /* Optional: Keep your desired styling */
-    border-radius: 10px; 
-    box-shadow: var(--shadow-sm); 
-}
+    .why-choose-image {
+        height: 450px !important;
+        overflow: hidden !important;
+        display: block !important;
+        border-radius: 10px;
+        box-shadow: var(--shadow-sm);
+    }
+    .why-choose-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    header {
+        background: #050505;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 3px solid var(--red);
+    }
 
-/* Control how the image behaves inside the container */
-.why-choose-image img {
-    /* Make the image always fill 100% of the container's width and height */
-    width: 100% !important;
-    height: 100% !important;
-    
-    /* KEY PROPERTY: This ensures the image covers the entire area 
-       without stretching, cropping any excess. */
-    object-fit: cover !important; 
-}
-
-     /* 1. ULTRA-DARK HEADER/NAVIGATION BAR */
-header {
-    /* Set the background to a near-black color for maximum match */
-    background: #050505; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.7); /* Increased shadow for depth */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 3px solid var(--red); /* Keeps the red accent */
-}
-
-/* Ensure the Logo and Navigation Links are white for high contrast */
-.logo {
-    color: var(--white); 
-}
-
-.nav-links a {
-    color: var(--white); 
-    font-weight: 600;
-    transition: all 0.3s;
-    position: relative;
-}
+    .logo {
+        color: var(--white);
+    }
+    .nav-links a {
+        color: var(--white);
+        font-weight: 600;
+        transition: all 0.3s;
+        position: relative;
+    }
 
 /* Set the Dropdown Menu background to a slightly lighter dark color for contrast */
-.dropdown-menu {
-    background: #151515; /* A slightly lighter dark for contrast */
+    .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #151515;           /* DARK background */
     border-left: 4px solid var(--red);
     border-radius: 0 5px 5px 0;
-    /* Ensure links inside are white */
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    margin-top: 0.5rem;
+    box-shadow: var(--shadow);
     max-height: 400px;
     overflow-y: auto;
 }
@@ -1066,38 +1069,13 @@ header {
 }
 
 
-/* 2. ULTRA-DARK HERO SECTION (Assuming ID is #hero) */
-#hero {
-    /* Set the section background to the near-black color */
-    background-color: #050505; 
-}
 
-/* Ensure all text in the hero section is white */
-#hero h1, 
-#hero p, 
-#hero .hero-content {
-    color: var(--white); 
-}
 
 /* If you have a semi-transparent overlay over the hero image, adjust its color */
 .hero-overlay {
     background: rgba(5, 5, 5, 0.8); /* Near-black transparent overlay */
 }
 
-/* 3. CONFIRM RED BUTTON */
-/* Ensure your "Book a Consultancy" button maintains the red color */
-.cta-button {
-    background-color: var(--red); /* This uses your existing var(--red) */
-    color: var(--white);
-    /* ... rest of your button styles ... */
-}   
-
-/* NEW STYLES FOR IMAGE CONTAINERS */
-.project-image {
-    width: 100%;
-    height: 220px; /* Set a fixed height for consistency */
-    overflow: hidden;
-}
 
 .project-image img {
     width: 100%;
@@ -1117,10 +1095,14 @@ header {
     <header>
         <nav class="navbar">
             <div class="logo">
-                <img src="https://i.imgur.com/IyL3hzo.jpeg" alt="AJ Interior Studio" style="height: 70px; width: auto;">
-                    <span>AJ Interior Studio</span>
+                <img src="https://i.imgur.com/IyL3hzo.jpeg" alt="AJ Interior Studio" style="height: 80px; width: auto;">
+                    
             </div>
-
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a onclick="scrollToSection('home')">Home</a></li>
                 <li><a onclick="scrollToSection('about')">About Us</a></li>
@@ -1145,11 +1127,13 @@ header {
                     </div>
                 </li>
                 <li><a onclick="scrollToSection('projects')">Projects</a></li>
+                <div class="nav-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('consultancy')">Book Consultancy</button>
+                </div>
                 <li><a onclick="scrollToSection('contact')">Contact Us</a></li>
+                
             </ul>
-            <div class="nav-buttons">
-                <button class="btn btn-primary" onclick="scrollToSection('consultancy')">Book Consultancy</button>
-            </div>
+                  
         </nav>
     </header>
 
@@ -1218,7 +1202,7 @@ header {
                 <h3>Why Choose AJ Interior Studio?</h3>
                 <ul>
                     <li>7+ years refining our craft for flawless execution.</li>
-                    <li>We use only premium, durable materials backed by quality guarantees.</li>
+                    <li>We only use premium, durable materials backed by quality guarantees.</li>
                     <li>A personalized, collaborative process that puts your style first.</li>
                     <li>Transparent, fixed-price quotes with no hidden costs.</li>
                     <li>We promise and deliver on-time project completion, minimizing disruption.</li>
@@ -1368,22 +1352,13 @@ header {
         
         <div class="filter-buttons">
             <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-            <button class="filter-btn" onclick="filterProjects('modern-wardrobes')">Modern Wardrobes</button>
+            <button class="filter-btn" onclick="filterProjects('modern-wardrobes')">Custom Joinery</button>
             <button class="filter-btn" onclick="filterProjects('gypsum-ceiling')">Gypsum Ceiling</button>
-            <button class="filter-btn" onclick="filterProjects('acoustic-ceiling')">Acoustic Ceiling</button>
-            <button class="filter-btn" onclick="filterProjects('painting')">Painting</button>
-            <button class="filter-btn" onclick="filterProjects('special-effects')">Special Effects</button>
-            <button class="filter-btn" onclick="filterProjects('fitting')">Fitting</button>
-            <button class="filter-btn" onclick="filterProjects('home-decor')">Home Decor</button>
-            <button class="filter-btn" onclick="filterProjects('wallpaper')">Wallpaper</button>
-            <button class="filter-btn" onclick="filterProjects('landscaping')">Landscaping</button>
-            <button class="filter-btn" onclick="filterProjects('wainscotting')">Wainscotting</button>
-            <button class="filter-btn" onclick="filterProjects('flooring')">Flooring</button>
-            <button class="filter-btn" onclick="filterProjects('gypsum-installation')">Gypsum Install</button>
+            <button class="filter-btn" onclick="filterProjects('home')">House</button>
+            <button class="filter-btn" onclick="filterProjects('gypsum-installation')">Gypsum Installation</button>
             <button class="filter-btn" onclick="filterProjects('3d-renders')">3D Renders</button>
-            <button class="filter-btn" onclick="filterProjects('joinery')">Joinery</button>
         </div>
-
+    <div class="projects-grid">
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
                 <img src="pic1.jpg" alt="Wardrobe1">
@@ -1412,50 +1387,55 @@ header {
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic6.jpg" alt="Wardrobe4">
+                <img src="pic6.jpg" alt="Wardrobe5">
             </div>
 
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic8.jpg" alt="Wardrobe5">
+                <img src="pic8.jpg" alt="Wardrobe6">
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic11.jpg" alt="Wardrobe6"> 
+                <img src="pic11.jpg" alt="Wardrobe7"> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
         <div class="project-image">
-                <img src="pic13.jpg" alt="Wardrobe7"> 
+                <img src="pic13.jpg" alt="Wardrobe8"> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic14.jpg" alt="Wardrobe8"> 
+                <img src="pic14.jpg" alt="Wardrobe9"> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic16.jpg" alt="Wardrobe9"> 
+                <img src="pic16.jpg" alt="Wardrobe10"> 
             </div>
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic18.jpg" alt="Wardrobe9"> 
+                <img src="pic18.jpg" alt="Wardrobe11"> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic19.jpg" alt="Wardrobe9"> 
+                <img src="pic19.jpg" alt="Wardrobe12"> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic20.jpg" alt="Wardrobe9"> 
+                <img src="pic20.jpg" alt="Wardrobe14"> 
+            </div>
+        </div>
+        <div class="project-card" data-category="modern-wardrobes">
+            <div class="project-image">
+                <img src="pic21.jpg" alt="Wardrobe15"> 
             </div>
         </div>
     
@@ -1523,75 +1503,286 @@ header {
                 <img src="gyp11.jpg" alt="gyp11"> 
             </div>
         </div>
+
+        <div class="project-card" data-category="gypsum-ceiling">
+            <div class="project-image">
+                <img src="G1.PNG" alt="gyp13"> 
+            </div>
+        </div>
+        <div class="project-card" data-category="gypsum-ceiling">
+            <div class="project-image">
+                <img src="gyp11.jpg" alt="gyp14"> 
+            </div>
+        </div>
     
- <div class="project-card" data-category="home-decor">
-    <div class="project-image">
-        <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-    </div>
-    <div class="project-title">Luxury Home Decor - Karen</div>
-</div>
-<div class="project-card" data-category="painting">
-                <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-                </div>
-                <div class="project-title">Contemporary Painting - Kilimani</div>
+        <div class="project-card" data-category="gypsum-installation">
+            <div class="project-image">
+                <img src="gypsuminstallation1.jpg" alt="installation1">
             </div>
-            <div class="project-card" data-category="flooring">
-                <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-                </div>
-                <div class="project-title">Premium Flooring - Nairobi CBD</div>
+        </div>
+        <div class="project-card" data-category="gypsum-installation">
+            <div class="project-image">
+                <img src="gypsuminstallation2.jpg" alt="installation2">
             </div>
-            <div class="project-card" data-category="acoustic-ceiling">
+        </div>
+            <div class="project-card" data-category="gypsum-installation">
                 <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                    <img src="gypsuminstallation3.jpg" alt="installation3">
                 </div>
-                <div class="project-title">Acoustic Solutions - Lavington</div>
-            </div>
-            <div class="project-card" data-category="joinery">
-                <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-                </div>
-                <div class="project-title">Custom Joinery - Upperhill</div>
-            </div>
-            <div class="project-card" data-category="special-effects">
-                <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-                </div>
-                <div class="project-title">Special Effects Design - Runda</div>
-            </div>
-            <div class="project-card" data-category="landscaping">
-                <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-                </div>
-                <div class="project-title">Outdoor Landscaping - Muthaiga</div>
-            </div>
-            <div class="project-card" data-category="wallpaper">
-                <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
-                </div>
-                <div class="project-title">Wallpaper Installation - South B</div>
             </div>
             <div class="project-card" data-category="gypsum-installation">
                 <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                    <img src="gypsuminstallation4.jpg" alt="installation4">
                 </div>
-                <div class="project-title">Gypsum Partition - Riverside</div>
+            </div>
+
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d3.jpg" alt="3d3">
+                </div>
+                
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                    <img src="3d4.jpg" alt="3d4">
                 </div>
-                <div class="project-title">3D Visualization - Westlands</div>
             </div>
-            <div class="project-card" data-category="fitting">
+            <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="YOUR_IMAGE_LINK_HERE.jpg" alt="Project Image">
+                    <img src="3d1.PNG" alt="3d1">
                 </div>
-                <div class="project-title">Expert Fitting Services - Parklands</div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d5.jpg" alt="3d5">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d2.PNG" alt="3d2">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d6.jpg" alt="3d6">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d7.jpg" alt="3d7">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d8.jpg" alt="3d8">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d9.jpg" alt="3d9">
+                </div>
+            </div>    
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3s2.jpg" alt="3s2">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d10.jpg" alt="3d10">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d11.jpg" alt="3d11">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d.jpg" alt="3d">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d12.jpg" alt="3d12">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d13.jpg" alt="3d13">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="home">
+                <div class="project-image">
+                    <img src="h1.jpg" alt="h1">
+                </div>
+            </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h2.jpg" alt="h2">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h3.jpg" alt="h3">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h4.jpg" alt="h4">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h5.jpg" alt="h5">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="homedecor1.jpg" alt="homedecor1">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="homedecor2.jpg" alt="homedecor2">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="homedecor3.jpg" alt="homedecor3">
             </div>
         </div>
 
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h6.jpg" alt="h6">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h7.jpg" alt="h7">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h8.jpg" alt="h8">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h9.jpg" alt="h9">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h10.jpg" alt="h10">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h11.jpg" alt="h11">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h12.jpg" alt="h12">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h13.jpg" alt="h13">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h14.jpg" alt="h14">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h16.jpg" alt="h16">
+            </div>
+        </div>
+       <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h17.jpg" alt="h17">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h18.jpg" alt="h18">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h19.jpg" alt="h19">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h20.jpg" alt="h20">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h21.jpg" alt="h21">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h22.jpg" alt="h22">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h23.jpg" alt="h23">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h24.jpg" alt="h24">
+            </div>
+        </div>
+       <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h25.jpg" alt="h25">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h26.jpg" alt="h26">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h27.jpg" alt="h27">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h28.jpg" alt="h28">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h29.jpg" alt="h29">
+            </div>
+        </div>
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h30.jpg" alt="h30">
+            </div>
+        </div>
+
+    </div>
         <div class="cta-form-section">
             <div class="cta-form-content">
                 <h3>Have a project in mind?</h3>
@@ -1777,6 +1968,21 @@ header {
             alert('Thank you! Your consultancy request has been received. We will be in touch soon.');
             e.target.reset();
         }
+        // Hamburger Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+        });
+    });
     </script> 
     
     
