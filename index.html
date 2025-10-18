@@ -2033,28 +2033,35 @@
                 <img src="h29.jpg" alt="h29">
             </div>
         </div>
-        
+        <div class="project-card" data-category="home">
+            <div class="project-image">
+                <img src="h31.jpg" alt="h31">
+            </div>
+        </div>
+    </div>    
+         
         <div class="cta-form-section">
             <div class="cta-form-content">
                 <h3>Have a project in mind?</h3>
                 <p>Let's discuss how we can bring your vision to life</p>
             </div>
             <form action="https://formspree.io/f/mblzweyb" method="POST">
-    <div class="form-grid">
-        <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" name="name" placeholder="Full Name" required>
-        </div>
-        <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" name="email" placeholder="your@email.com" required>
-        </div>
-        <div class="form-group">
-            <label>Phone Number</label>
-            <input type="tel" name="phone" placeholder="e.g. +254 712 345 678" required>
-        </div>
-        <div class="form-group">
-            <label>Project Subject</label>
+                <div class="form-grid">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" name="name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" placeholder="e.g. +254 712 345 678" required>
+                </div>
+                <div class="form-group">
+                    <label>Project Subject</label>
             <input type="text" name="subject" placeholder="Describe your project" required>
         </div>
         <div class="form-submit">
@@ -2159,121 +2166,34 @@
     </footer>
 
     <script>
-        let currentSlideIndex = 0;
-        const slides = document.querySelectorAll('.hero-slide');
-        const dots = document.querySelectorAll('.dot');
-
-        function autoSlide() {
-            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-            updateSlide();
-        }
-
-        function currentSlide(n) {
-            currentSlideIndex = n;
-            updateSlide();
-        }
-
-        function updateSlide() {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            slides[currentSlideIndex].classList.add('active');
-            dots[currentSlideIndex].classList.add('active');
-        }
-
-        setInterval(autoSlide, 6000);
-
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (window.innerWidth <= 768) {
-                enableMobileTabMode(id);
-            } else {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function scrollToService(id) {
-            const element = document.getElementById(id);
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function filterProjects(category) {
-            const cards = document.querySelectorAll('.project-card');
-            const buttons = document.querySelectorAll('.filter-btn');
-
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Thank you! We will contact you shortly.');
-            e.target.reset();
-        }
-
-        
-        // Hamburger Menu Toggle
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const hamburger = document.querySelector('.hamburger');
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
-
-        function toggleServicesDropdown() {
-            if (window.innerWidth <= 768) {
-            openServicesSidebar();
-        }
-    // On desktop, dropdown works via CSS hover
+        // ===== MOBILE TAB MODE FUNCTIONS =====
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    
+    if (window.innerWidth <= 768) {
+        enableMobileTabMode(id);
+    } else {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
-    // Close menu when link is clicked & enable mobile tab mode
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            document.querySelector('.nav-links').classList.remove('active');
-            document.querySelector('.hamburger').classList.remove('active');
-        
-           // Enable mobile tab mode only on mobile
-            if (window.innerWidth <= 768) {
-                const onclickAttr = e.target.getAttribute('onclick');
-            if (onclickAttr && onclickAttr.includes('scrollToSection')) {
-                enableMobileTabMode(onclickAttr);
-            }
-        }
-    });
-});
-
-    function openServicesSidebar() {
-        document.getElementById('servicesSidebar').classList.add('active');
-        document.getElementById('sidebarOverlay').classList.add('active');
-    }
-
-    function closeSidebar() {
-        document.getElementById('servicesSidebar').classList.remove('active');
-        document.getElementById('sidebarOverlay').classList.remove('active');
-    }
-
-    function enableMobileTabMode(sectionId) {
+function enableMobileTabMode(sectionId) {
     if (window.innerWidth > 768) return;
     
     document.body.classList.add('mobile-tab-mode');
     
+    // Hide all sections
     document.querySelectorAll('section').forEach(section => {
         section.classList.remove('active-section');
     });
     
+    // Show the clicked section
     const section = document.getElementById(sectionId);
     if (section) {
         section.classList.add('active-section');
         addBackButton(section);
         
+        // Scroll to section after a short delay
         setTimeout(() => {
             section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
@@ -2281,9 +2201,11 @@
 }
 
 function addBackButton(section) {
+    // Remove any existing back button
     const existingBtn = section.querySelector('.back-to-top-btn');
     if (existingBtn) existingBtn.remove();
     
+    // Create and insert new back button
     const backBtn = document.createElement('button');
     backBtn.className = 'back-to-top-btn';
     backBtn.innerHTML = '← Back to Home';
@@ -2297,13 +2219,63 @@ function addBackButton(section) {
     section.insertBefore(backBtn, section.firstChild);
 }
 
-// Disable tab mode on window resize (when going to desktop)
+// Handle window resize - exit tab mode on desktop
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
         document.body.classList.remove('mobile-tab-mode');
         document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
     }
 });
+
+// ===== HAMBURGER MENU =====
+function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    navLinks.classList.toggle('active');
+    hamburger.classList.toggle('active');
+}
+
+// Close menu when a navigation link is clicked
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.hamburger').classList.remove('active');
+    });
+});
+
+// ===== SERVICES SIDEBAR =====
+function openServicesSidebar() {
+    document.getElementById('servicesSidebar').classList.add('active');
+    document.getElementById('sidebarOverlay').classList.add('active');
+}
+
+function closeSidebar() {
+    document.getElementById('servicesSidebar').classList.remove('active');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+// ===== SERVICES SCROLL =====
+function scrollToService(id) {
+    const element = document.getElementById(id);
+    element.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== PROJECTS FILTER =====
+function filterProjects(category) {
+    const cards = document.querySelectorAll('.project-card');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
     </script>
 
 
