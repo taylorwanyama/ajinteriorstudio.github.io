@@ -115,28 +115,6 @@
         }
 
         
-
-        .dropdown:hover .dropdown-menu {
-            display: flex;
-        }
-
-        .dropdown-menu a {
-            padding: 0.9rem 1.5rem;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-        }
-
-        .dropdown-menu a:hover {
-            background: var(--light-bg);
-            color: var(--red);
-            border-left: 3px solid var(--red);
-            padding-left: 2rem;
-        }
-
         .nav-buttons {
             display: flex;
             gap: 0.8rem;
@@ -1190,26 +1168,7 @@
             <ul class="nav-links">
                 <li><a onclick="scrollToSection('home')">Home</a></li>
                 <li><a onclick="scrollToSection('about')">About Us</a></li>
-                <li class="dropdown">
-                    <a onclick="openServicesSidebar()">Services</a>
-                    <div class="dropdown-menu">
-                        <a onclick="scrollToService('gypsum-ceiling')">Gypsum Ceiling</a>
-                        <a onclick="scrollToService('acoustic-ceiling')">Acoustic Ceiling</a>
-                        <a onclick="scrollToService('painting')">Painting</a>
-                        <a onclick="scrollToService('special-effects')">Special Effects</a>
-                        <a onclick="scrollToService('fitting')"> Cabinets & Fitting</a>
-                        <a onclick="scrollToService('home-decor')">Home Decor</a>
-                        <a onclick="scrollToService('wallpaper')">Wallpaper Installation</a>
-                        <a onclick="scrollToService('landscaping')">Landscaping</a>
-                        <a onclick="scrollToService('wainscotting')">Wainscotting</a>
-                        <a onclick="scrollToService('flooring')">Flooring</a>
-                        <a onclick="scrollToService('gypsum-installation')">Gypsum Installation</a>
-                        <a onclick="scrollToService('3d-renders')">3D Renders & Designing</a>
-                        <a onclick="scrollToService('joinery')">Joinery</a>
-                        <a onclick="scrollToService('office')">Office Partitioning</a>
-                        <a onclick="scrollToService('home')">Home & Office Renovation</a>
-                    </div>
-                </li>
+                <li><a onclick="scrollToSection('services-detailed')">Services</a></li>
                 <li><a onclick="scrollToSection('projects')">Projects</a></li>
                 <div class="nav-buttons">
                     <button class="btn btn-primary" onclick="scrollToSection('consultancy')">Book Consultancy</button>
@@ -1280,10 +1239,55 @@
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
         </div>
+
     </section>
-
+<section style="padding: 40px 2rem; background: var(--white); border-bottom: 3px solid var(--red);">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+        <div>
+            <i class="fas fa-award" style="font-size: 2.5rem; color: var(--red); margin-bottom: 1rem;"></i>
+            <h4 style="color: var(--black); margin-bottom: 0.5rem;">Certified Experts</h4>
+            <p style="color: var(--text-light); font-size: 0.9rem;">Professional designers & craftsmen</p>
+        </div>
+        <div>
+            <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--green); margin-bottom: 1rem;"></i>
+            <h4 style="color: var(--black); margin-bottom: 0.5rem;">On-Time Always</h4>
+            <p style="color: var(--text-light); font-size: 0.9rem;">Projects completed on schedule</p>
+        </div>
+        <div>
+            <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--red); margin-bottom: 1rem;"></i>
+            <h4 style="color: var(--black); margin-bottom: 0.5rem;">Lifetime Warranty</h4>
+            <p style="color: var(--text-light); font-size: 0.9rem;">Guaranteed quality & support</p>
+        </div>
+    </div>
+</section>
     
-
+<section style="padding: 40px 2rem; background: var(--white);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h3 style="text-align: center; font-size: 1.8rem; color: var(--black); margin-bottom: 2rem; font-weight: 900;">Our Simple Process</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+            <div>
+                <div style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">1</div>
+                <h5 style="color: var(--black); margin-bottom: 0.5rem;">Consultation</h5>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Understand your vision & budget</p>
+            </div>
+            <div>
+                <div style="width: 50px; height: 50px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">2</div>
+                <h5 style="color: var(--black); margin-bottom: 0.5rem;">3D Design</h5>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Visualize before execution</p>
+            </div>
+            <div>
+                <div style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">3</div>
+                <h5 style="color: var(--black); margin-bottom: 0.5rem;">Execution</h5>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Premium materials & craftsmen</p>
+            </div>
+            <div>
+                <div style="width: 50px; height: 50px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">4</div>
+                <h5 style="color: var(--black); margin-bottom: 0.5rem;">Support</h5>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Lifetime warranty & maintenance</p>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- ABOUT SECTION -->
     <section id="about">
         <h2>About Us</h2>
@@ -1976,7 +1980,7 @@
                 <h3>Have a project in mind?</h3>
                 <p>Let's discuss how we can bring your vision to life</p>
             </div>
-            <form action="https://formspree.io/f/mblzweyb" method="POST"> method="POST">
+            <form action="https://formspree.io/f/mblzweyb" method="POST">
     <div class="form-grid">
         <div class="form-group">
             <label>Your Name</label>
@@ -2162,7 +2166,7 @@
 
         function toggleServicesDropdown() {
             if (window.innerWidth <= 768) {
-                openServicesSidebar();
+            openServicesSidebar();
         }
     // On desktop, dropdown works via CSS hover
 }
@@ -2186,7 +2190,7 @@
     </script> 
     
     
-    <!--Start of Tawk.to Script-->
+    
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
