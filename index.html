@@ -2180,6 +2180,14 @@ function scrollToSection(id) {
 function enableMobileTabMode(sectionId) {
     if (window.innerWidth > 768) return;
     
+    // If Home is clicked, exit tab mode and go back to normal
+    if (sectionId === 'home') {
+        document.body.classList.remove('mobile-tab-mode');
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+    
     document.body.classList.add('mobile-tab-mode');
     
     // Hide all sections
