@@ -2166,6 +2166,8 @@
     </footer>
 
     <script>
+
+        
         // ===== MOBILE TAB MODE FUNCTIONS =====
 function scrollToSection(id) {
     const element = document.getElementById(id);
@@ -2284,6 +2286,29 @@ function filterProjects(category) {
         }
     });
 }
+// ===== HERO SLIDER (PUT THIS AT THE END) =====
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+
+function autoSlide() {
+    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+    updateSlide();
+}
+
+function currentSlide(n) {
+    currentSlideIndex = n;
+    updateSlide();
+}
+
+function updateSlide() {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    slides[currentSlideIndex].classList.add('active');
+    dots[currentSlideIndex].classList.add('active');
+}
+
+setInterval(autoSlide, 6000);
     </script>
 
 
