@@ -1088,7 +1088,91 @@
     transform: scale(1.05); /* Slight zoom on hover */
 }
 
-    </style>
+/* SERVICES SIDEBAR */
+.services-sidebar {
+    position: fixed;
+    left: -350px;
+    top: 0;
+    width: 350px;
+    height: 100vh;
+    background: linear-gradient(135deg, #050505, #1a1a1a);
+    z-index: 999;
+    transition: left 0.4s ease;
+    overflow-y: auto;
+    padding-top: 80px;
+    border-right: 3px solid var(--red);
+}
+
+.services-sidebar.active {
+    left: 0;
+}
+
+.services-sidebar h3 {
+    padding: 1.5rem 1.5rem 1rem;
+    color: var(--white);
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--red);
+    margin-bottom: 1rem;
+}
+
+.services-sidebar-list {
+    list-style: none;
+}
+
+.services-sidebar-list li {
+    margin: 0;
+}
+
+.services-sidebar-list a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: #ccc;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+    font-weight: 500;
+}
+
+.services-sidebar-list a:hover {
+    background: rgba(206, 17, 38, 0.2);
+    color: var(--red);
+    border-left: 4px solid var(--red);
+    padding-left: 2rem;
+}
+
+.sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sidebar-close:hover {
+    color: var(--red);
+    transform: rotate(90deg);
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 998;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+</style>
 </head>
 <body>
     <!-- HEADER -->
@@ -1107,7 +1191,7 @@
                 <li><a onclick="scrollToSection('home')">Home</a></li>
                 <li><a onclick="scrollToSection('about')">About Us</a></li>
                 <li class="dropdown">
-                    <a>Services</a>
+                    <a onclick="openServicesSidebar()">Services</a>
                     <div class="dropdown-menu">
                         <a onclick="scrollToService('gypsum-ceiling')">Gypsum Ceiling</a>
                         <a onclick="scrollToService('acoustic-ceiling')">Acoustic Ceiling</a>
@@ -1135,7 +1219,32 @@
             </ul>
                   
         </nav>
-    </header>
+        <!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- SERVICES SIDEBAR -->
+<div class="services-sidebar" id="servicesSidebar">
+    <button class="sidebar-close" onclick="closeSidebar()">×</button>
+    <h3>Services</h3>
+    <ul class="services-sidebar-list">
+        <li><a onclick="scrollToService('gypsum-ceiling'); closeSidebar();">Gypsum Ceiling</a></li>
+        <li><a onclick="scrollToService('acoustic-ceiling'); closeSidebar();">Acoustic Ceiling</a></li>
+        <li><a onclick="scrollToService('painting'); closeSidebar();">Professional Painting</a></li>
+        <li><a onclick="scrollToService('special-effects'); closeSidebar();">Special Effects</a></li>
+        <li><a onclick="scrollToService('fitting'); closeSidebar();">Cabinets & Fitting</a></li>
+        <li><a onclick="scrollToService('home-decor'); closeSidebar();">Home Decor</a></li>
+        <li><a onclick="scrollToService('wallpaper'); closeSidebar();">Wallpaper Installation</a></li>
+        <li><a onclick="scrollToService('landscaping'); closeSidebar();">Landscaping</a></li>
+        <li><a onclick="scrollToService('wainscotting'); closeSidebar();">Wainscotting</a></li>
+        <li><a onclick="scrollToService('flooring'); closeSidebar();">Flooring Services</a></li>
+        <li><a onclick="scrollToService('gypsum-installation'); closeSidebar();">Gypsum Installation</a></li>
+        <li><a onclick="scrollToService('3d-renders'); closeSidebar();">3D Renders & Designing</a></li>
+        <li><a onclick="scrollToService('joinery'); closeSidebar();">Custom Joinery</a></li>
+        <li><a onclick="scrollToService('office'); closeSidebar();">Office Partitioning</a></li>
+        <li><a onclick="scrollToService('home'); closeSidebar();">Home & Office Renovation</a></li>
+    </ul>
+</div>
+</header>
 
     <!-- HOME SECTION -->
     <section id="home" class="hero">
@@ -1194,7 +1303,7 @@
             </div>
         </div>
         <div class="about-content">
-            <p>AJ Interior Studio a trusted design partner for creating exceptional living and working environments. With 7+ years of expertise, we seamlessly merge innovative design with meticulous craftsmanship to deliver spaces that are breathtaking, functional, and modern</p>
+            <p>AJ Interior Studio a trusted design partner for creating exceptional living and working environments. With 7+ years of expertise, we seamlessly merge innovative design with meticulous craftsmanship to deliver spaces that are breathtaking, functional, and modern.</p>
             <p>Our certified experts ensure top-tier quality for your project, delivered on schedule and within the agreed-upon budget.</p>
         </div>
         <div class="why-choose">
@@ -1219,7 +1328,7 @@
     <!-- SERVICES DETAILED -->   
     <section id="services-detailed">
     <h2>Services</h2>
-    <p>Expert solutions for every interior design need</p>
+    <p>We offer expert solutions to every interior design need</p>
 
     <div class="services-grid"> 
         
@@ -1228,7 +1337,8 @@
                 <img src="https://i.imgur.com/Cj6e3bI.png" alt="Gypsum Ceiling">
             </div>
             <h4>Gypsum Ceiling</h4>
-            <p>Design and install stunning, modern gypsum ceilings that integrate custom lighting and architectural features. Our installations provide a seamless finish and allow for creative designs.</p>
+            <p>We design and install stunning, modern gypsum ceilings that integrate custom lighting and architectural features.</p>
+            <p>Our installations provide a seamless finish and allow for creative designs.</p>
         </div>
 
         <div id="acoustic-ceiling" class="service-card">
@@ -1236,7 +1346,8 @@
                 <img src="https://i.imgur.com/HMDHf7K.png" alt="Acoustic Ceiling">
             </div>
             <h4>Acoustic Ceiling</h4>
-            <p>Create a quieter, more comfortable environment with our acoustic ceiling installations. Ideal for offices and commercial spaces, these ceilings effectively absorb sound.</p>
+            <p>Create a quieter, more comfortable environment with our acoustic ceiling installations.</p>
+            <p>Ideal for offices and commercial spaces, these ceilings effectively absorb sound.</p>
         </div>
 
         <div id="painting" class="service-card">
@@ -1244,7 +1355,8 @@
                 <img src="https://i.imgur.com/eTm3Dvh.png" alt="Professional Painting">
             </div>
             <h4>Professional Painting</h4>
-            <p>Transform your walls with our expert painting services using premium quality paints and advanced techniques. We deliver flawless results that enhance your space's aesthetic.</p>
+            <p>Transform your walls with our expert painting services using premium quality paints and advanced techniques.</p>
+            <p>We deliver flawless results that enhance your space's aesthetic.</p>
         </div>
 
         <div id="special-effects" class="service-card">
@@ -1252,7 +1364,8 @@
                 <img src="https://i.imgur.com/ey6pBmW.png" alt="Special Effects">
             </div>
             <h4>Special Effects</h4>
-            <p>Add uniqueness to your interiors with our special effects designs. We create stunning textured finishes, metallic effects, and custom patterns.</p>
+            <p>Add uniqueness to your interiors with our special effects designs.</p>
+            <p>We create stunning textured finishes, metallic effects, and custom patterns.</p>
         </div>
 
         <div id="fitting" class="service-card">
@@ -1268,7 +1381,8 @@
                 <img src="https://i.imgur.com/BzRbsRq.png" alt="Home Decor">
             </div>
             <h4>Home Decor</h4>
-            <p>Complete home decoration solutions that reflect your personal style. From furniture selection to accessory placement, we create cohesive designs.</p>
+            <p>Complete home decoration solutions that reflect your personal style.</p>
+            <p>From furniture selection to accessory placement, we create cohesive designs.</p>
         </div>
         
         <div id="wallpaper" class="service-card">
@@ -1276,7 +1390,8 @@
                 <img src="https://i.imgur.com/JKfwW12.png" alt="Wallpaper Installation">
             </div>
             <h4>Wallpaper Installation</h4>
-            <p>Choose from an extensive range of wallpaper designs and textures. Our expert installers ensure perfect alignment and smooth application for flawless results.</p>
+            <p>Choose from an extensive range of wallpaper designs and textures.</p>
+            <p>Our expert installers ensure perfect alignment and smooth application for flawless results.</p>
         </div>
 
         <div id="landscaping" class="service-card">
@@ -1284,7 +1399,8 @@
                 <img src="https://i.imgur.com/xflaAXN.png" alt="Landscaping">
             </div>
             <h4>Landscaping</h4>
-            <p>Extend your design vision outdoors with our comprehensive landscaping services, featuring gardens, pathways, and hardscaping elements.</p>
+            <p>Extend your design vision outdoors with our comprehensive landscaping services,</p>
+            <p>featuring gardens, pathways, and hardscaping elements.</p>
         </div>
 
         <div id="wainscotting" class="service-card">
@@ -1292,7 +1408,8 @@
                 <img src="https://i.imgur.com/MMkK7EB.png" alt="Wainscotting">
             </div>
             <h4>Wainscotting</h4>
-            <p>Add elegance and character to your walls with professional wainscotting installation. This classic design element adds depth and sophistication.</p>
+            <p>Add elegance and character to your walls with professional wainscotting installation.</p>
+            <p>This classic design element adds depth and sophistication.</p>
         </div>
 
         <div id="flooring" class="service-card">
@@ -1300,7 +1417,8 @@
                 <img src="https://i.imgur.com/oVA5uoJ.png" alt="Flooring Services">
             </div>
             <h4>Flooring Services</h4>
-            <p>Discover our extensive range of flooring options from hardwood to tile. We provide expert installation services with attention to detail and durability.</p>
+            <p>Discover our extensive range of flooring options from hardwood to tile.</p>
+            <p>We provide expert installation services with attention to detail and durability.</p>
         </div>
 
         <div id="gypsum-installation" class="service-card">
@@ -1308,7 +1426,8 @@
                 <img src="https://i.imgur.com/2UT9kWe.png" alt="Gypsum Installation">
             </div>
             <h4>Gypsum Installation</h4>
-            <p>Professional gypsum board installation for walls and partitions that provide durability and flexibility in design, ready for painting or wallpapering.</p>
+            <p>Professional gypsum board installation for walls and partitions that provide durability and flexibility in design,</p>
+            <p>ready for painting or wallpapering.</p>
         </div>
 
         <div id="3d-renders" class="service-card">
@@ -1316,7 +1435,8 @@
                 <img src="https://i.imgur.com/XpAwDTn.png" alt="3D Renders & Designing">
             </div>
             <h4>3D Renders & Designing</h4>
-            <p>Visualize your dream space before we begin construction with our professional 3D rendering services, helping you see exactly how your space will look.</p>
+            <p>Visualize your dream space before we begin construction with our professional 3D rendering services,</p>
+            <p>helping you see exactly how your space will look.</p>
         </div>
 
         <div id="joinery" class="service-card">
@@ -1324,7 +1444,8 @@
                 <img src="https://i.imgur.com/ZwoG5tG.png" alt="Custom Joinery">
             </div>
             <h4>Custom Joinery</h4>
-            <p>Custom-built joinery solutions including cabinets, shelving, and built-in furniture designed specifically for your space by skilled carpenters.</p>
+            <p>Custom-built joinery solutions including cabinets, shelving, and built-in furniture designed specifically for your space</p>
+            <p>by skilled carpenters.</p>
         </div>
 
         <div id="office" class="service-card">
@@ -1332,7 +1453,8 @@
                 <img src="https://i.imgur.com/W4YDBmw.png" alt="Office Partitioning">
             </div>
             <h4>Office Partitioning</h4>
-            <p>Do you want a perfectly designed and visually appealing office? AJ Interior Studio are your go-to service providers in that sphere.</p>
+            <p>Do you want a perfectly designed and visually appealing office?</p>
+            <p>AJ Interior Studio are your go-to service providers in that sphere.</p>
         </div>
         
         <div id="home" class="service-card">
@@ -1888,28 +2010,27 @@
         <div class="consultancy-container">
             <div class="consultancy-form">
                 <h3>Request A Consultation</h3>
-                <form onsubmit="handleConsultancy(event)">
-                    <div class="form-group full">
-                        <label>Your Email Address</label>
-                        <input type="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group full">
-                        <label>Subject</label>
-                        <input type="text" placeholder="How can we help you?" required>
-                    </div>
-                    <div class="form-group full">
-                        <label>Your Budget</label>
-                        <input type="text" placeholder="What's your budget?" required>
-                    </div>
-                    <div class="form-group full">
-                        <label>Tell Us About Your Project</label>
-                        <textarea placeholder="Describe your project in detail..." required></textarea>
-                    </div>
-                    <div class="form-submit">
-                        <button type="submit">Send Message</button>
-                    </div>
-                </form>
-            </div>
+<form action="https://formspree.io/f/mblzweyb" method="POST">
+    <div class="form-group full">
+        <label>Your Email Address</label>
+        <input type="email" name="email" placeholder="your@email.com" required>
+    </div>
+    <div class="form-group full">
+        <label>Subject</label>
+        <input type="text" name="subject" placeholder="How can we help you?" required>
+    </div>
+    <div class="form-group full">
+        <label>Your Budget</label>
+        <input type="text" name="budget" placeholder="What's your budget?" required>
+    </div>
+    <div class="form-group full">
+        <label>Tell Us About Your Project</label>
+        <textarea name="project" placeholder="Describe your project in detail..." required></textarea>
+    </div>
+    <div class="form-submit">
+        <button type="submit">Send Message</button>
+    </div>
+</form>
 
             <div class="consultancy-info">
                 <h3>Why Consult With Us?</h3>
@@ -2049,6 +2170,15 @@
             document.querySelector('.hamburger').classList.remove('active');
         });
     });
+    function openServicesSidebar() {
+        document.getElementById('servicesSidebar').classList.add('active');
+        document.getElementById('sidebarOverlay').classList.add('active');
+    }
+
+    function closeSidebar() {
+        document.getElementById('servicesSidebar').classList.remove('active');
+        document.getElementById('sidebarOverlay').classList.remove('active');
+    }
     </script> 
     
     
