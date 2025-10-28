@@ -13,1211 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AJ Interior Studio - Transform Your Space</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --black: #000000;
-            --red: #CE1126;
-            --green: #007A5E;
-            --light-bg: #f8f8f8;
-            --text-dark: #1a1a1a;
-            --text-light: #555;
-            --white: #ffffff;
-            --shadow: 0 8px 30px rgba(0,0,0,0.15);
-            --shadow-sm: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--black);
-            letter-spacing: -1px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: var(--red);
-            font-size: 2rem;
-        }
-        /* Hamburger Menu - ADD THIS */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 6px;
-            background: none;
-            border: none;
-            padding: 0.5rem;
-        }
-
-        .hamburger span {
-            width: 28px;
-            height: 3px;
-            background: var(--white);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            margin: 0 auto;
-        }
-
-        
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--red);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .dropdown {
-            position: relative;
-        }
-
-        
-        .nav-buttons {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 0.5rem 0.3rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-        .logo img {
-            height: 50px;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-
-        .logo span {
-            background: linear-gradient(135deg, var(--red), var(--green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 900;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--red), #a00d1f);
-            color: var(--white);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--green), #005a45);
-            color: var(--white);
-            font-size: 0.9rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-tertiary {
-            background: var(--black);
-            color: var(--white);
-            font-size: 0.9rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn-tertiary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-            background: var(--text-dark);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            position: relative;
-            height: 600px;  /* Changed from 700px */
-            overflow: hidden;
-        }
-
-        .hero-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .hero-slide.active {
-            opacity: 1;
-        }
-
-        .hero-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(206,17,38,0.4));
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-left: 5%;
-            color: var(--white);
-            z-index: 2;
-        }
-
-        .hero-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: slideUp 0.8s ease;
-            font-weight: 900;
-            line-height: 1.1;
-        }
-
-        .hero-content h1 span {
-            color: var(--red);
-        }
-
-        .hero-content p {
-            font-size: 1.4rem;
-            animation: slideUp 0.8s ease 0.2s both;
-            font-weight: 500;
-            max-width: 600px;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 30px;
-            left: 5%;
-            display: flex;
-            gap: 12px;
-            z-index: 5;
-        }
-
-        .dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid var(--white);
-        }
-
-        .dot.active {
-            background: var(--red);
-            transform: scale(1.3);
-        }
-
-        /* ===== SECTIONS ===== */
-        section {
-            padding: 80px 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        section h2 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: var(--black);
-            font-weight: 900;
-            position: relative;
-            display: inline-block;
-        }
-
-        section h2:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            height: 4px;
-            width: 80px;
-            background: linear-gradient(90deg, var(--red), var(--green));
-        }
-
-        section h2 + p {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin-top: 2rem;
-            max-width: 600px;
-        }
-
-        section h3 {
-            font-size: 1.8rem;
-            color: var(--black);
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-
-        /* ===== SERVICES OVERVIEW ===== */
-        .services-intro {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        
-        .service-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow);
-            border-top: 4px solid var(--red);
-        }
-
-        .service-card:nth-child(even):hover {
-            border-top: 4px solid var(--green);
-        }
-
-        .service-card i {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--red), var(--green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .service-card h4 {
-            color: var(--black);
-            margin-bottom: 0.8rem;
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
-
-        /* ===== ABOUT SECTION ===== */
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2.5rem;
-            margin: 3rem 0;
-        }
-
-        .metric-card {
-            background: linear-gradient(135deg, var(--red), var(--black));
-            color: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .metric-card:hover {
-            transform: scale(1.05);
-        }
-
-        .metric-card:nth-child(2) {
-            background: linear-gradient(135deg, var(--green), var(--black));
-        }
-
-        .metric-card:nth-child(3) {
-            background: linear-gradient(135deg, var(--red), var(--green));
-        }
-
-        .metric-card h3 {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--white);
-            font-weight: 900;
-        }
-
-        .metric-card p {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .about-content {
-            margin: 3rem 0;
-            line-height: 1.9;
-            font-size: 1.05rem;
-            color: var(--text-light);
-        }
-
-        .why-choose {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin-top: 3rem;
-        }
-
-        .why-choose-text ul {
-            list-style: none;
-        }
-
-        .why-choose-text li {
-            padding: 1rem 0;
-            padding-left: 2.5rem;
-            position: relative;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 1.05rem;
-        }
-
-        .why-choose-text li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--red);
-            font-weight: 900;
-            font-size: 1.5rem;
-        }
-
-        .why-choose-image {
-            background: linear-gradient(135deg, var(--red), var(--green));
-            height: 350px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--white);
-            box-shadow: var(--shadow);
-        }
-
-        /* ===== SERVICES DETAILED ===== */
-        .service-detail {
-            margin: 4rem 0;
-            padding: 3rem;
-            background: var(--light-bg);
-            border-radius: 15px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            border-left: 5px solid var(--red);
-            transition: all 0.4s;
-        }
-
-        .service-detail:nth-child(even) {
-            border-left: 5px solid var(--green);
-        }
-
-        .service-detail:nth-child(even) {
-            grid-template-columns: 1fr 1fr;
-            direction: rtl;
-        }
-
-        .service-detail:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .service-detail:hover {
-            box-shadow: var(--shadow);
-            transform: translateX(10px);
-        }
-
-        .service-detail-image {
-            background: linear-gradient(135deg, var(--red), var(--green)); /* Keep for gradient border effect, but images will cover it */
-            height: 400px;
-            border-radius: 15px;
-            display: flex;
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-        }
-        
-        .service-detail-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-       .service-detail h4 {
-            font-size: 2rem;
-            margin-bottom: 1.2rem;
-            color: var(--black);
-            font-weight: 900;
-        }
-
-        .service-detail p {
-            color: var(--text-light);
-            line-height: 1.9;
-            font-size: 1.05rem;
-        }
-
-        /* ===== PROJECTS SECTION ===== */
-        .filter-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            overflow-x: auto;
-            padding-bottom: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.9rem 1.8rem;
-            border: 2px solid var(--black);
-            background: var(--white);
-            color: var(--black);
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .filter-btn.active {
-            background: var(--red);
-            color: var(--white);
-            border-color: var(--red);
-        }
-
-        .filter-btn:hover {
-            border-color: var(--red);
-            color: var(--red);
-        }
-
-        /* REVISED: 3-column responsive grid for projects */
-        .projects-grid {
-            display: grid;
-            /* Default: 3 columns for desktop, with min width of 300px for responsiveness */
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 2.5rem;
-            margin-bottom: 3rem;
-            /* No margin-top added here to preserve spacing and background color */
-        }
-
-        /* Responsive adjustments for the projects grid (OPTIONAL BUT RECOMMENDED) */
-        @media (max-width: 992px) {
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .projects-grid {
-                /* 1 column on mobile screens */
-                grid-template-columns: 1fr; 
-            }
-            .hero {
-                height: 350px;
-            }
-        }
-
-        .project-card {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.4s;
-            cursor: pointer;
-            border: 3px solid transparent;
-        }
-
-        .project-card:hover {
-            transform: scale(1.08);
-            box-shadow: var(--shadow);
-            border: 3px solid var(--red);
-        }
-        .project-image {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, var(--red), var(--green));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            color: var(--white);
-            overflow: hidden;
-        }
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-        .project-title {
-            padding: 1.5rem;
-            text-align: center;
-            color: var(--black);
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
-
-        .cta-form-section {
-            background: linear-gradient(135deg, var(--green), var(--black));
-            color: var(--white);
-            padding: 3.5rem 2rem;
-            border-radius: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-            border-top: 5px solid var(--red);
-        }
-
-        .cta-form-content {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-form-content h3 {
-            font-size: 2.2rem;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-            font-weight: 900;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.95);
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            background: var(--white);
-            box-shadow: 0 0 0 3px var(--red);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-submit {
-            grid-column: 1 / -1;
-            margin-top: 1.5rem;
-        }
-
-        .form-submit button {
-            width: 100%;
-            padding: 1.2rem;
-            background: var(--red);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .form-submit button:hover {
-            background: #a00d1f;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(206,17,38,0.3);
-        }
-
-        /* ===== CONSULTANCY SECTION ===== */
-        .consultancy-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-top: 3rem;
-        }
-
-        .consultancy-form {
-            background: var(--light-bg);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-            border-left: 5px solid var(--red);
-        }
-
-        .consultancy-info {
-            padding: 2.5rem;
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-            border-left: 5px solid var(--green);
-        }
-
-        .consultancy-info h3 {
-            margin-bottom: 2rem;
-            color: var(--black);
-            font-size: 1.8rem;
-        }
-
-        .contact-detail {
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--light-bg);
-        }
-
-        .contact-detail:last-child {
-            border-bottom: none;
-        }
-
-        .contact-detail i {
-            font-size: 1.8rem;
-            color: var(--red);
-            min-width: 35px;
-            margin-top: 0.3rem;
-        }
-
-        .contact-detail a {
-            color: var(--text-dark);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .contact-detail a:hover {
-            color: var(--red);
-        }
-
-        /* ===== CONTACT SECTION ===== */
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 700;
-            transition: all 0.3s;
-        }
-
-        .contact-link i {
-            font-size: 2.5rem;
-            color: var(--red);
-            transition: all 0.3s;
-        }
-
-        .contact-link:hover i {
-            color: var(--green);
-            transform: scale(1.2);
-        }
-
-        .contact-link:hover {
-            transform: translateY(-10px);
-            color: var(--black);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(135deg, var(--black), #1a1a1a);
-            color: var(--white);
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 3rem;
-            border-top: 5px solid var(--red);
-            font-weight: 600;
-        }
-
-        /* CORRECTED MOBILE TAB NAVIGATION */
-@media (max-width: 768px) {
-    body.mobile-tab-mode section:not(.hero) {
-        display: none !important;
-    }
-    
-    body.mobile-tab-mode section.active-section {
-        display: block !important;
-    }
-    
-    body.mobile-tab-mode footer {
-        display: none !important;
-    }
-}
-
-    @media (min-width: 769px) {
-        body.mobile-tab-mode section:not(.hero) {
-            display: block !important;
-        }
-    
-        body.mobile-tab-mode footer {
-            display: block !important;
-        }
-    }
-
-        .back-to-top-btn {
-            display: block;
-            padding: 0.8rem 1.5rem;
-            background: var(--red);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            width: 100%;
-            transition: all 0.3s;
-        }
-
-        .back-to-top-btn:hover {
-            background: #a00d1f;
-        }
-   
-
-
-    @media (min-width: 769px) {
-        body.mobile-tab-mode section:not(.hero) {
-        display: block !important;
-    }
-
-    body.mobile-tab-mode section:not(.hero).active-section {
-        display: block !important;
-    }
-
-    body.mobile-tab-mode footer {
-        display: block !important;
-    }
-}
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-            
-           .nav-links {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #050505;
-            flex-direction: column;
-            gap: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            border-bottom: 3px solid var(--red);
-        }
-
-        .nav-links.active {
-            max-height: 500px;
-        }
-        .nav-links li {
-            padding: 1rem 0;
-            border-bottom: 1px solid #333;
-            width: 100%;
-            text-align: center;
-        }
-
-        .navbar {
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding: 1rem;
-        }
-        .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-
-            section h2 {
-                font-size: 2.5rem;
-            }
-
-            .consultancy-container,
-            .why-choose,
-            .service-detail {
-                grid-template-columns: 1fr;
-            }
-
-            .service-detail:nth-child(even) {
-                direction: ltr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-links {
-                gap: 1.5rem;
-            }
-
-            section {
-                padding: 50px 1.5rem;
-            }
-
-            .nav-buttons {
-                width: 100%;
-                flex-wrap: wrap;
-            }
-
-            .btn {
-                flex: 1;
-                min-width: 120px;
-                justify-content: center;
-            }
-        }
-        .floating-buttons {
-            position: fixed;
-            bottom: 40px;
-            left: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 999;
-        }
-
-       .floating-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: var(--shadow);
-            text-decoration: none;
-        }
-
-        .whatsapp-btn {
-            background: var(--green);
-            color: var(--white);
-        }
-
-       .whatsapp-btn:hover {
-            transform: scale(1.15);
-            background: #005a45;
-        }
-
-        .chat-btn {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        .chat-btn:hover {
-            transform: scale(1.15);
-            background: #a00d1f;
-        }
-
-        /* Container for the 3-column grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 30px;
-            margin-top: 50px;
-            padding: 0 50px; 
-        }
-
-        /* Styling for each individual service card */
-        .service-card {
-            background-color: var(--white);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #eee; /* Add a subtle border */
-        }
-
-        
-        .service-card-image {
-            width: 100%;
-            height: 180px; /* Fixed height for consistent card size */
-            margin-bottom: 15px;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .service-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures image covers the container */
-        }
-
-       .service-card h4 {
-           color: var(--red);
-           margin-bottom: 10px;
-        }
-
-        .service-card p {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-    
-    @media (max-width: 576px) {
-        .services-grid {
-            grid-template-columns: 1fr;
-            padding: 0 20px;
-        }
-    }
-    .why-choose-image {
-        height: 450px !important;
-        overflow: hidden !important;
-        display: block !important;
-        border-radius: 10px;
-        box-shadow: var(--shadow-sm);
-    }
-    .why-choose-image img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-    }
-    header {
-        background: #050505;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 3px solid var(--red);
-    }
-
-    .logo {
-        color: var(--white);
-    }
-    .nav-links a {
-        color: var(--white);
-        font-weight: 600;
-        transition: all 0.3s;
-        position: relative;
-    }
-
-/* Set the Dropdown Menu background to a slightly lighter dark color for contrast */
-    .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #151515;           /* DARK background */
-    border-left: 4px solid var(--red);
-    border-radius: 0 5px 5px 0;
-    min-width: 220px;
-    display: none;
-    flex-direction: column;
-    margin-top: 0.5rem;
-    box-shadow: var(--shadow);
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.dropdown-menu a {
-    color: var(--white); 
-}
-
-.dropdown-menu a:hover {
-    background: #333333; /* A slight hover contrast */
-    color: var(--red);
-}
-
-
-
-
-/* If you have a semi-transparent overlay over the hero image, adjust its color */
-.hero-overlay {
-    background: rgba(5, 5, 5, 0.8); /* Near-black transparent overlay */
-}
-
-
-.project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures image covers the area without stretching */
-    transition: transform 0.4s;
-}
-
-.project-card:hover .project-image img {
-    transform: scale(1.05); /* Slight zoom on hover */
-}
-
-/* SERVICES SIDEBAR */
-.services-sidebar {
-    position: fixed;
-    left: -350px;
-    top: 0;
-    width: 350px;
-    height: 100vh;
-    background: linear-gradient(135deg, #050505, #1a1a1a);
-    z-index: 999;
-    transition: left 0.4s ease;
-    overflow-y: auto;
-    padding-top: 80px;
-    border-right: 3px solid var(--red);
-}
-
-.services-sidebar.active {
-    left: 0;
-}
-
-.services-sidebar h3 {
-    padding: 1.5rem 1.5rem 1rem;
-    color: var(--white);
-    font-size: 1.5rem;
-    border-bottom: 2px solid var(--red);
-    margin-bottom: 1rem;
-}
-
-.services-sidebar-list {
-    list-style: none;
-}
-
-.services-sidebar-list li {
-    margin: 0;
-}
-
-.services-sidebar-list a {
-    display: block;
-    padding: 1rem 1.5rem;
-    color: #ccc;
-    text-decoration: none;
-    transition: all 0.3s;
-    border-left: 4px solid transparent;
-    font-weight: 500;
-}
-
-.services-sidebar-list a:hover {
-    background: rgba(206, 17, 38, 0.2);
-    color: var(--red);
-    border-left: 4px solid var(--red);
-    padding-left: 2rem;
-}
-
-.sidebar-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: var(--white);
-    font-size: 1.8rem;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.sidebar-close:hover {
-    color: var(--red);
-    transform: rotate(90deg);
-}
-
-.sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 998;
-}
-
-.sidebar-overlay.active {
-    display: block;
-}
-
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -1225,7 +21,6 @@
         <nav class="navbar">
             <div class="logo">
                 <img src="https://i.imgur.com/IyL3hzo.jpeg" alt="AJ Interior Studio" style="height: 80px; width: auto;">
-                    
             </div>
             <button class="hamburger" onclick="toggleMenu()">
                 <span></span>
@@ -1241,36 +36,35 @@
                     <button class="btn btn-primary" onclick="scrollToSection('consultancy')">Book Consultancy</button>
                 </div>
                 <li><a onclick="scrollToSection('contact')">Contact Us</a></li>
-                
             </ul>
-                  
         </nav>
+        
         <!-- SIDEBAR OVERLAY -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-<!-- SERVICES SIDEBAR -->
-<div class="services-sidebar" id="servicesSidebar">
-    <button class="sidebar-close" onclick="closeSidebar()">×</button>
-    <h3>Services</h3>
-    <ul class="services-sidebar-list">
-        <li><a onclick="scrollToService('gypsum-ceiling'); closeSidebar();">Gypsum Ceiling</a></li>
-        <li><a onclick="scrollToService('acoustic-ceiling'); closeSidebar();">Acoustic Ceiling</a></li>
-        <li><a onclick="scrollToService('painting'); closeSidebar();">Professional Painting</a></li>
-        <li><a onclick="scrollToService('special-effects'); closeSidebar();">Special Effects</a></li>
-        <li><a onclick="scrollToService('fitting'); closeSidebar();">Cabinets & Fitting</a></li>
-        <li><a onclick="scrollToService('home-decor'); closeSidebar();">Home Decor</a></li>
-        <li><a onclick="scrollToService('wallpaper'); closeSidebar();">Wallpaper Installation</a></li>
-        <li><a onclick="scrollToService('landscaping'); closeSidebar();">Landscaping</a></li>
-        <li><a onclick="scrollToService('wainscotting'); closeSidebar();">Wainscotting</a></li>
-        <li><a onclick="scrollToService('flooring'); closeSidebar();">Flooring Services</a></li>
-        <li><a onclick="scrollToService('gypsum-installation'); closeSidebar();">Gypsum Installation</a></li>
-        <li><a onclick="scrollToService('3d-renders'); closeSidebar();">3D Renders & Designing</a></li>
-        <li><a onclick="scrollToService('joinery'); closeSidebar();">Custom Joinery</a></li>
-        <li><a onclick="scrollToService('office'); closeSidebar();">Office Partitioning</a></li>
-        <li><a onclick="scrollToService('home'); closeSidebar();">Home & Office Renovation</a></li>
-    </ul>
-</div>
-</header>
+        <!-- SERVICES SIDEBAR -->
+        <div class="services-sidebar" id="servicesSidebar">
+            <button class="sidebar-close" onclick="closeSidebar()">×</button>
+            <h3>Services</h3>
+            <ul class="services-sidebar-list">
+                <li><a onclick="scrollToService('gypsum-ceiling'); closeSidebar();">Gypsum Ceiling</a></li>
+                <li><a onclick="scrollToService('acoustic-ceiling'); closeSidebar();">Acoustic Ceiling</a></li>
+                <li><a onclick="scrollToService('painting'); closeSidebar();">Professional Painting</a></li>
+                <li><a onclick="scrollToService('special-effects'); closeSidebar();">Special Effects</a></li>
+                <li><a onclick="scrollToService('fitting'); closeSidebar();">Cabinets & Fitting</a></li>
+                <li><a onclick="scrollToService('home-decor'); closeSidebar();">Home Decor</a></li>
+                <li><a onclick="scrollToService('wallpaper'); closeSidebar();">Wallpaper Installation</a></li>
+                <li><a onclick="scrollToService('landscaping'); closeSidebar();">Landscaping</a></li>
+                <li><a onclick="scrollToService('wainscotting'); closeSidebar();">Wainscotting</a></li>
+                <li><a onclick="scrollToService('flooring'); closeSidebar();">Flooring Services</a></li>
+                <li><a onclick="scrollToService('gypsum-installation'); closeSidebar();">Gypsum Installation</a></li>
+                <li><a onclick="scrollToService('3d-renders'); closeSidebar();">3D Renders & Designing</a></li>
+                <li><a onclick="scrollToService('joinery'); closeSidebar();">Custom Joinery</a></li>
+                <li><a onclick="scrollToService('office'); closeSidebar();">Office Partitioning</a></li>
+                <li><a onclick="scrollToService('home'); closeSidebar();">Home & Office Renovation</a></li>
+            </ul>
+        </div>
+    </header>
 
     <!-- HOME SECTION -->
     <section id="home" class="hero">
@@ -1297,7 +91,7 @@
             <div class="hero-overlay">
                 <div class="hero-content">
                     <h1>Turning Your <span>Vision</span> Into Reality.</h1>
-            <p> Bespoke consultation process that captures your unique style and ambition.</p>
+                    <p>Bespoke consultation process that captures your unique style and ambition.</p>
                 </div>
             </div>
         </div>
@@ -1306,55 +100,56 @@
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
         </div>
-
     </section>
-<section style="padding: 40px 2rem; background: var(--white); border-bottom: 3px solid var(--red);">
-    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-        <div>
-            <i class="fas fa-award" style="font-size: 2.5rem; color: var(--red); margin-bottom: 1rem;"></i>
-            <h4 style="color: var(--black); margin-bottom: 0.5rem;">Certified Experts</h4>
-            <p style="color: var(--text-light); font-size: 0.9rem;">Professional designers & craftsmen</p>
+
+    <section style="padding: 40px 2rem; background: var(--white); border-bottom: 3px solid var(--red);">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+            <div>
+                <i class="fas fa-award" style="font-size: 2.5rem; color: var(--red); margin-bottom: 1rem;"></i>
+                <h4 style="color: var(--black); margin-bottom: 0.5rem;">Certified Experts</h4>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Professional designers & craftsmen</p>
+            </div>
+            <div>
+                <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--green); margin-bottom: 1rem;"></i>
+                <h4 style="color: var(--black); margin-bottom: 0.5rem;">On-Time Always</h4>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Projects completed on schedule</p>
+            </div>
+            <div>
+                <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--red); margin-bottom: 1rem;"></i>
+                <h4 style="color: var(--black); margin-bottom: 0.5rem;">Lifetime Warranty</h4>
+                <p style="color: var(--text-light); font-size: 0.9rem;">Guaranteed quality & support</p>
+            </div>
         </div>
-        <div>
-            <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--green); margin-bottom: 1rem;"></i>
-            <h4 style="color: var(--black); margin-bottom: 0.5rem;">On-Time Always</h4>
-            <p style="color: var(--text-light); font-size: 0.9rem;">Projects completed on schedule</p>
-        </div>
-        <div>
-            <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--red); margin-bottom: 1rem;"></i>
-            <h4 style="color: var(--black); margin-bottom: 0.5rem;">Lifetime Warranty</h4>
-            <p style="color: var(--text-light); font-size: 0.9rem;">Guaranteed quality & support</p>
-        </div>
-    </div>
-</section>
+    </section>
     
-<section style="padding: 40px 2rem; background: var(--white);">
-    <div style="max-width: 1200px; margin: 0 auto;">
-        <h3 style="text-align: center; font-size: 1.8rem; color: var(--black); margin-bottom: 2rem; font-weight: 900;">Our Simple Process</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-            <div>
-                <div style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">1</div>
-                <h5 style="color: var(--black); margin-bottom: 0.5rem;">Consultation</h5>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Understand your vision & budget</p>
-            </div>
-            <div>
-                <div style="width: 50px; height: 50px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">2</div>
-                <h5 style="color: var(--black); margin-bottom: 0.5rem;">3D Design</h5>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Visualize before execution</p>
-            </div>
-            <div>
-                <div style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">3</div>
-                <h5 style="color: var(--black); margin-bottom: 0.5rem;">Execution</h5>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Premium materials & craftsmen</p>
-            </div>
-            <div>
-                <div style="width: 50px; height: 50px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">4</div>
-                <h5 style="color: var(--black); margin-bottom: 0.5rem;">Support</h5>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Lifetime warranty & maintenance</p>
+    <section style="padding: 40px 2rem; background: var(--white);">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h3 style="text-align: center; font-size: 1.8rem; color: var(--black); margin-bottom: 2rem; font-weight: 900;">Our Simple Process</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">1</div>
+                    <h5 style="color: var(--black); margin-bottom: 0.5rem;">Consultation</h5>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Understand your vision & budget</p>
+                </div>
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">2</div>
+                    <h5 style="color: var(--black); margin-bottom: 0.5rem;">3D Design</h5>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Visualize before execution</p>
+                </div>
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">3</div>
+                    <h5 style="color: var(--black); margin-bottom: 0.5rem;">Execution</h5>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Premium materials & craftsmen</p>
+                </div>
+                <div>
+                    <div style="width: 50px; height: 50px; background: var(--green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.3rem; margin: 0 auto 1rem;">4</div>
+                    <h5 style="color: var(--black); margin-bottom: 0.5rem;">Support</h5>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Lifetime warranty & maintenance</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
     <!-- ABOUT SECTION -->
     <section id="about">
         <h2>About Us</h2>
@@ -1391,152 +186,151 @@
                 </ul>
             </div>
             <div class="why-choose-image">
-                <img src="https://i.imgur.com/mSn4l86.png" alt="Why image" >
+                <img src="https://i.imgur.com/mSn4l86.png" alt="Why image">
             </div>
         </div>
     </section>
 
     <!-- SERVICES DETAILED -->   
     <section id="services-detailed">
-    <h2>Services</h2>
-    <p>We offer expert solutions to every interior design need</p>
+        <h2>Services</h2>
+        <p>We offer expert solutions to every interior design need</p>
 
-    <div class="services-grid"> 
-        
-        <div id="gypsum-ceiling" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/Cj6e3bI.png" alt="**Modern gypsum ceiling design with integrated lighting.**">
+        <div class="services-grid"> 
+            <div id="gypsum-ceiling" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/Cj6e3bI.png" alt="Modern gypsum ceiling design with integrated lighting.">
+                </div>
+                <h4>Gypsum Ceiling</h4>
+                <p>We design and install stunning, modern gypsum ceilings that integrate custom lighting and architectural features.</p>
+                <p>Our installations provide a seamless finish and allow for creative designs.</p>
             </div>
-            <h4>Gypsum Ceiling</h4>
-            <p>We design and install stunning, modern gypsum ceilings that integrate custom lighting and architectural features.</p>
-            <p>Our installations provide a seamless finish and allow for creative designs.</p>
-        </div>
 
-        <div id="acoustic-ceiling" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/HMDHf7K.png" alt="**Sound-absorbing acoustic ceiling panels for a corporate office space.**">
+            <div id="acoustic-ceiling" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/HMDHf7K.png" alt="Sound-absorbing acoustic ceiling panels for a corporate office space.">
+                </div>
+                <h4>Acoustic Ceiling</h4>
+                <p>Create a quieter, more comfortable environment with our acoustic ceiling installations.</p>
+                <p>Ideal for offices and commercial spaces, these ceilings effectively absorb sound.</p>
             </div>
-            <h4>Acoustic Ceiling</h4>
-            <p>Create a quieter, more comfortable environment with our acoustic ceiling installations.</p>
-            <p>Ideal for offices and commercial spaces, these ceilings effectively absorb sound.</p>
-        </div>
 
-        <div id="painting" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/eTm3Dvh.png" alt="Professional Painting">
+            <div id="painting" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/eTm3Dvh.png" alt="Professional Painting">
+                </div>
+                <h4>Professional Painting</h4>
+                <p>Transform your walls with our expert painting services using premium quality paints and advanced techniques.</p>
+                <p>We deliver flawless results that enhance your space's aesthetic.</p>
             </div>
-            <h4>Professional Painting</h4>
-            <p>Transform your walls with our expert painting services using premium quality paints and advanced techniques.</p>
-            <p>We deliver flawless results that enhance your space's aesthetic.</p>
-        </div>
 
-        <div id="special-effects" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/ey6pBmW.png" alt="Special Effects">
+            <div id="special-effects" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/ey6pBmW.png" alt="Special Effects">
+                </div>
+                <h4>Special Effects</h4>
+                <p>Add uniqueness to your interiors with our special effects designs.</p>
+                <p>We create stunning textured finishes, metallic effects, and custom patterns.</p>
             </div>
-            <h4>Special Effects</h4>
-            <p>Add uniqueness to your interiors with our special effects designs.</p>
-            <p>We create stunning textured finishes, metallic effects, and custom patterns.</p>
-        </div>
 
-        <div id="fitting" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/ybAoPQO.png" alt="Cabinets & Fitting">
+            <div id="fitting" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/ybAoPQO.png" alt="Cabinets & Fitting">
+                </div>
+                <h4>Cabinets & Fitting</h4>
+                <p>Our fitting services include expert installation of doors, windows, fixtures, and fittings with meticulous attention to detail and high quality.</p>
             </div>
-            <h4>Cabinets & Fitting</h4>
-            <p>Our fitting services include expert installation of doors, windows, fixtures, and fittings with meticulous attention to detail and high quality.</p>
-        </div>
 
-        <div id="home-decor" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/BzRbsRq.png" alt="Home Decor">
+            <div id="home-decor" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/BzRbsRq.png" alt="Home Decor">
+                </div>
+                <h4>Home Decor</h4>
+                <p>Complete home decoration solutions that reflect your personal style.</p>
+                <p>From furniture selection to accessory placement, we create cohesive designs.</p>
             </div>
-            <h4>Home Decor</h4>
-            <p>Complete home decoration solutions that reflect your personal style.</p>
-            <p>From furniture selection to accessory placement, we create cohesive designs.</p>
-        </div>
-        
-        <div id="wallpaper" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/JKfwW12.png" alt="Wallpaper Installation">
+            
+            <div id="wallpaper" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/JKfwW12.png" alt="Wallpaper Installation">
+                </div>
+                <h4>Wallpaper Installation</h4>
+                <p>Choose from an extensive range of wallpaper designs and textures.</p>
+                <p>Our expert installers ensure perfect alignment and smooth application for flawless results.</p>
             </div>
-            <h4>Wallpaper Installation</h4>
-            <p>Choose from an extensive range of wallpaper designs and textures.</p>
-            <p>Our expert installers ensure perfect alignment and smooth application for flawless results.</p>
-        </div>
 
-        <div id="landscaping" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/xflaAXN.png" alt="Landscaping">
+            <div id="landscaping" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/xflaAXN.png" alt="Landscaping">
+                </div>
+                <h4>Landscaping</h4>
+                <p>Extend your design vision outdoors with our comprehensive landscaping services,</p>
+                <p>featuring gardens, pathways, and hardscaping elements.</p>
             </div>
-            <h4>Landscaping</h4>
-            <p>Extend your design vision outdoors with our comprehensive landscaping services,</p>
-            <p>featuring gardens, pathways, and hardscaping elements.</p>
-        </div>
 
-        <div id="wainscotting" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/MMkK7EB.png" alt="Wainscotting">
+            <div id="wainscotting" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/MMkK7EB.png" alt="Wainscotting">
+                </div>
+                <h4>Wainscotting</h4>
+                <p>Add elegance and character to your walls with professional wainscotting installation.</p>
+                <p>This classic design element adds depth and sophistication.</p>
             </div>
-            <h4>Wainscotting</h4>
-            <p>Add elegance and character to your walls with professional wainscotting installation.</p>
-            <p>This classic design element adds depth and sophistication.</p>
-        </div>
 
-        <div id="flooring" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/oVA5uoJ.png" alt="Flooring Services">
+            <div id="flooring" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/oVA5uoJ.png" alt="Flooring Services">
+                </div>
+                <h4>Flooring Services</h4>
+                <p>Discover our extensive range of flooring options from hardwood to tile.</p>
+                <p>We provide expert installation services with attention to detail and durability.</p>
             </div>
-            <h4>Flooring Services</h4>
-            <p>Discover our extensive range of flooring options from hardwood to tile.</p>
-            <p>We provide expert installation services with attention to detail and durability.</p>
-        </div>
 
-        <div id="gypsum-installation" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/2UT9kWe.png" alt="Gypsum Installation">
+            <div id="gypsum-installation" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/2UT9kWe.png" alt="Gypsum Installation">
+                </div>
+                <h4>Gypsum Installation</h4>
+                <p>Professional gypsum board installation for walls and partitions that provide durability and flexibility in design,</p>
+                <p>ready for painting or wallpapering.</p>
             </div>
-            <h4>Gypsum Installation</h4>
-            <p>Professional gypsum board installation for walls and partitions that provide durability and flexibility in design,</p>
-            <p>ready for painting or wallpapering.</p>
-        </div>
 
-        <div id="3d-renders" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/XpAwDTn.png" alt="3D Renders & Designing">
+            <div id="3d-renders" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/XpAwDTn.png" alt="3D Renders & Designing">
+                </div>
+                <h4>3D Renders & Designing</h4>
+                <p>Visualize your dream space before we begin construction with our professional 3D rendering services,</p>
+                <p>helping you see exactly how your space will look.</p>
             </div>
-            <h4>3D Renders & Designing</h4>
-            <p>Visualize your dream space before we begin construction with our professional 3D rendering services,</p>
-            <p>helping you see exactly how your space will look.</p>
-        </div>
 
-        <div id="joinery" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/ZwoG5tG.png" alt="Custom Joinery">
+            <div id="joinery" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/ZwoG5tG.png" alt="Custom Joinery">
+                </div>
+                <h4>Custom Joinery</h4>
+                <p>Custom-built joinery solutions including cabinets, shelving, and built-in furniture designed specifically for your space</p>
+                <p>by skilled carpenters.</p>
             </div>
-            <h4>Custom Joinery</h4>
-            <p>Custom-built joinery solutions including cabinets, shelving, and built-in furniture designed specifically for your space</p>
-            <p>by skilled carpenters.</p>
-        </div>
 
-        <div id="office" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/W4YDBmw.png" alt="Office Partitioning">
+            <div id="office" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/W4YDBmw.png" alt="Office Partitioning">
+                </div>
+                <h4>Office Partitioning</h4>
+                <p>Do you want a perfectly designed and visually appealing office?</p>
+                <p>AJ Interior Studio are your go-to service providers in that sphere.</p>
             </div>
-            <h4>Office Partitioning</h4>
-            <p>Do you want a perfectly designed and visually appealing office?</p>
-            <p>AJ Interior Studio are your go-to service providers in that sphere.</p>
-        </div>
-        
-        <div id="home" class="service-card">
-            <div class="service-card-image">
-                <img src="https://i.imgur.com/NBe1YPZ.png" alt="Home & Office Renovation">
+            
+            <div id="home" class="service-card">
+                <div class="service-card-image">
+                    <img src="https://i.imgur.com/NBe1YPZ.png" alt="Home & Office Renovation">
+                </div>
+                <h4>Home & Office Renovation</h4>
+                <p>Transform your space with our expert renovation services, tailored to meet your specific needs and preferences.</p>
             </div>
-            <h4>Home & Office Renovation</h4>
-            <p>Transform your space with our expert renovation services, tailored to meet your specific needs and preferences.</p>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- PROJECTS SECTION -->
     <section id="projects">
@@ -1553,714 +347,779 @@
             <button class="filter-btn" onclick="filterProjects('3d-renders')">3D Renders</button>
             <button class="filter-btn" onclick="filterProjects('kitchen')">Modern Kitchen Designs</button>
         </div>
-    <div class="projects-grid">
-        <div class="project-card" data-category="modern-wardrobes">
-            <div class="project-image">
-                <img src="pic1.jpg" alt="**3D render of a white built-in bedroom wardrobe with drawers and open shelving in a corner setting.**">
+
+        <div class="projects-grid">
+            <div class="project-card" data-category="modern-wardrobes">
+                <div class="project-image">
+                    <img src="pic1.jpg" alt="3D render of a white built-in bedroom wardrobe">
+                </div>
             </div>
-        </div>
-  
-        <div class="project-card" data-category="modern-wardrobes">
+            <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic4.jpg" alt="**Custom wardrobe interior showing mixed white and wood panels, hanging rails, and open shelves.**">
+                <img src="pic4.jpg" alt="Custom wardrobe interior showing mixed white and wood panels, hanging rails, and open shelves.">
             </div>
 
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                 <img src="pic5.jpg" alt="**Corner view of a custom walk-in closet interior with white shelves, hanging rails, and corner shelving units.**"> 
+                 <img src="pic5.jpg" alt="Corner view of a custom walk-in closet interior with white shelves, hanging rails, and corner shelving units."> 
             </div>
     
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic17.jpg" alt="**Close-up of beige/taupe semi-gloss wardrobe doors with modern silver bar handles.**"> 
+                <img src="pic17.jpg" alt="Close-up of beige/taupe semi-gloss wardrobe doors with modern silver bar handles."> 
             </div>
     
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic6.jpg" alt="**Close-up of flush, handle-less beige/taupe wardrobe doors with integrated vertical black pull recess.**">
+                <img src="pic6.jpg" alt="Close-up of flush, handle-less beige/taupe wardrobe doors with integrated vertical black pull recess.">
             </div>
 
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic8.jpg" alt="**Close-up of a full-height wood veneer wardrobe with long black vertical handles.**">
+                <img src="pic8.jpg" alt="Close-up of a full-height wood veneer wardrobe with long black vertical handles.">
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic11.jpg" alt="**Corner built-in white wardrobe with full-length mirror, integrated vanity table, and long black handles.**"> 
+                <img src="pic11.jpg" alt="Corner built-in white wardrobe with full-length mirror, integrated vanity table, and long black handles."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
         <div class="project-image">
-                <img src="pic13.jpg" alt="**Wall-to-wall fitted white wardrobe with flush doors, integrated drawer unit, and minimal silver handles.**"> 
+                <img src="pic13.jpg" alt="Wall-to-wall fitted white wardrobe with flush doors, integrated drawer unit, and minimal silver handles."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic14.jpg" alt="**Extensive white custom wardrobe with black vertical handles and a central vanity area with a large mirror.**"> 
+                <img src="pic14.jpg" alt="Extensive white custom wardrobe with black vertical handles and a central vanity area with a large mirror."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic16.jpg" alt="**Full-height wood-grain wardrobe with sleek black vertical handles and visible white interior shelving.**">
+                <img src="pic16.jpg" alt="Full-height wood-grain wardrobe with sleek black vertical handles and visible white interior shelving.">
             </div>
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic18.jpg" alt="**Custom white and wood wardrobe system with display shelving, integrated lighting, and a mirrored panel.**"> 
+                <img src="pic18.jpg" alt="Custom white and wood wardrobe system with display shelving, integrated lighting, and a mirrored panel."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic19.jpg" alt="**Seamless wall of white built-in closets with long black handles in a modern bedroom setting.**"> 
+                <img src="pic19.jpg" alt="Seamless wall of white built-in closets with long black handles in a modern bedroom setting."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic20.jpg" alt="**Completed white built-in wardrobe with a central vanity table, mirror, and long vertical handles.**"> 
+                <img src="pic20.jpg" alt="Completed white built-in wardrobe with a central vanity table, mirror, and long vertical handles."> 
             </div>
         </div>
        
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic21.jpg" alt="**Worker installing final touches on a white built-in wardrobe with multiple drawers and long handles.**"> 
+                <img src="pic21.jpg" alt="Worker installing final touches on a white built-in wardrobe with multiple drawers and long handles."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic22.jpg" alt="**Interior of a sliding door wardrobe showing double hanging rails and modular shelving units.**">
+                <img src="pic22.jpg" alt="Interior of a sliding door wardrobe showing double hanging rails and modular shelving units.">
             </div>
         </div>
   
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic23.jpg" alt="**Wide view of a large sliding door wardrobe interior with extensive side shelving and central sliding doors.**">
+                <img src="pic23.jpg" alt="Wide view of a large sliding door wardrobe interior with extensive side shelving and central sliding doors.">
             </div>
 
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                 <img src="pic25.jpg" alt="**Unique curved corner wardrobe system combining light wood and white panels with open shelving and drawers.**">
-            </div>
-    
-        </div>
-
-        <div class="project-card" data-category="modern-wardrobes">
-            <div class="project-image">
-                <img src="pic26.jpg" alt="**Interior view of a corner walk-in closet with multiple white shelves, hanging rails, and specialized shoe shelving.**">
+                 <img src="pic25.jpg" alt="Unique curved corner wardrobe system combining light wood and white panels with open shelving and drawers.">
             </div>
     
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic27.jpg" alt="**White wardrobe interior showing modular shelving, hanging rails, and pull-out drawers during installation.**"> 
+                <img src="pic26.jpg" alt="Interior view of a corner walk-in closet with multiple white shelves, hanging rails, and specialized shoe shelving.">
+            </div>
+    
+        </div>
+
+        <div class="project-card" data-category="modern-wardrobes">
+            <div class="project-image">
+                <img src="pic27.jpg" alt="White wardrobe interior showing modular shelving, hanging rails, and pull-out drawers during installation."> 
             </div>
 
         </div>
 
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic28.jpg" alt="**Full-height light wood wardrobe interior with open shelving, double hanging space, and integrated drawers.**">
+                <img src="pic28.jpg" alt="Full-height light wood wardrobe interior with open shelving, double hanging space, and integrated drawers.">
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic29.jpg" alt="**Large built-in white wardrobe with full-length mirrored doors, open shelving sections, and drawers.**"> 
+                <img src="pic29.jpg" alt="Large built-in white wardrobe with full-length mirrored doors, open shelving sections, and drawers."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
         <div class="project-image">
-                <img src="pic30.jpg" alt="**Full-height wood-grain wardrobe with seamless doors and long black vertical handles.**"> 
+                <img src="pic30.jpg" alt="Full-height wood-grain wardrobe with seamless doors and long black vertical handles."> 
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic33.jpg" alt="**Custom closet system with warm wood panels, interior lighting, and integrated media/vanity space.**">
+                <img src="pic33.jpg" alt="Custom closet system with warm wood panels, interior lighting, and integrated media/vanity space.">
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="pic36.jpg" alt="**Completed white built-in wardrobe interior showing double hanging space, shelves, and a clean white finish.**">
+                <img src="pic36.jpg" alt="Completed white built-in wardrobe interior showing double hanging space, shelves, and a clean white finish.">
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="h32.jpg" alt="**Wall of modern white paneled wardrobes with dark round handles, integrated glass display cases, and drawer units.**">
+                <img src="h32.jpg" alt="Wall of modern white paneled wardrobes with dark round handles, integrated glass display cases, and drawer units.">
             </div>
         </div>
         <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                <img src="h33.jpg" alt="**Bright yellow wall contrasting a glossy white built-in wardrobe with dark vertical pull handles in a hallway.**">
+                <img src="h33.jpg" alt="Bright yellow wall contrasting a glossy white built-in wardrobe with dark vertical pull handles in a hallway.">
             </div>
         </div>
     
      <div class="project-card" data-category="modern-wardrobes">
             <div class="project-image">
-                 <img src="add.jpg" alt="**Full wall of white built-in closets with thin silver handles and top cabinets, being inspected by a worker.**"> 
+                 <img src="add.jpg" alt="Full wall of white built-in closets with thin silver handles and top cabinets, being inspected by a worker."> 
             </div>
     
     </div>      
     <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp1.jpg" alt="**Modern gypsum ceiling with warm cove lighting and multiple linear LED strip lights crossing the room.**">
+                <img src="gyp1.jpg" alt="Modern gypsum ceiling with warm cove lighting and multiple linear LED strip lights crossing the room.">
             </div>
         </div>
 
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp2.jpg" alt="**Minimalist gypsum ceiling design featuring a single long linear LED light recessed into the center of the panel.**">
+                <img src="gyp2.jpg" alt="Minimalist gypsum ceiling design featuring a single long linear LED light recessed into the center of the panel.">
             </div>
 
         </div>
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                 <img src="gyp3.jpg" alt="**Gypsum ceiling with a complex pattern of intersecting linear LED strip lights and ambient cove lighting.**"> 
-            </div>
-    
-        </div>
-
-        <div class="project-card" data-category="gypsum-ceiling">
-            <div class="project-image">
-                <img src="gyp4.jpg" alt="**Modern gypsum ceiling with a double recessed tray and a linear LED strip light running through the center.**">
+                 <img src="gyp3.jpg" alt="Gypsum ceiling with a complex pattern of intersecting linear LED strip lights and ambient cove lighting."> 
             </div>
     
         </div>
 
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp5.jpg" alt="**Finished room with a light gray painted wall, white wainscoting, and a detailed gypsum ceiling surrounding a central light fixture.**">
+                <img src="gyp4.jpg" alt="Modern gypsum ceiling with a double recessed tray and a linear LED strip light running through the center.">
+            </div>
+    
+        </div>
+
+        <div class="project-card" data-category="gypsum-ceiling">
+            <div class="project-image">
+                <img src="gyp5.jpg" alt="Finished room with a light gray painted wall, white wainscoting, and a detailed gypsum ceiling surrounding a central light fixture.">
             </div>
 
         </div>
 
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp6.jpg" alt="**Open plan living space with a feature wall, built-in cabinet, archway, and finished gypsum ceiling with decorative trim.**">
+                <img src="gyp6.jpg" alt="Open plan living space with a feature wall, built-in cabinet, archway, and finished gypsum ceiling with decorative trim.">
             </div>
         </div>
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp7.jpg" alt="**Finished open plan living room with a feature wall entertainment unit, curved archway, and elegant gypsum ceiling.**"> 
+                <img src="gyp7.jpg" alt="Finished open plan living room with a feature wall entertainment unit, curved archway, and elegant gypsum ceiling."> 
             </div>
         </div>
         <div class="project-card" data-category="gypsum-ceiling">
         <div class="project-image">
-                <img src="gyp8.jpg" alt="**Gypsum ceiling with a single diagonal recess featuring continuous warm LED cove lighting.**">
+                <img src="gyp8.jpg" alt="Gypsum ceiling with a single diagonal recess featuring continuous warm LED cove lighting.">
             </div>
         </div>
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp9.jpg" alt="**Finished interior view of a room with a decorative gypsum ceiling, chandelier, and a built-in home bar area in the background.**">
+                <img src="gyp9.jpg" alt="Finished interior view of a room with a decorative gypsum ceiling, chandelier, and a built-in home bar area in the background.">
             </div>
         </div>
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp10.jpg" alt="**Simple, finished room interior with a plain gypsum ceiling, sleek copper pendant lights, and large windows.**">
+                <img src="gyp10.jpg" alt="Simple, finished room interior with a plain gypsum ceiling, sleek copper pendant lights, and large windows.">
             </div>
         </div>
 
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp11.jpg" alt="**Close-up of a smooth gypsum ceiling featuring deep, warm golden LED cove lighting in a single recess.**">
+                <img src="gyp11.jpg" alt="Close-up of a smooth gypsum ceiling featuring deep, warm golden LED cove lighting in a single recess.">
             </div>
         </div>
 
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="G1.PNG" alt="**Dramatic gypsum ceiling design with a blue illuminated recess and magenta feature walls, showcasing creative colored lighting.**">
+                <img src="G1.PNG" alt="Dramatic gypsum ceiling design with a blue illuminated recess and magenta feature walls, showcasing creative colored lighting.">
             </div>
         </div>
         <div class="project-card" data-category="gypsum-ceiling">
             <div class="project-image">
-                <img src="gyp11.jpg" alt="**Close-up of a smooth gypsum ceiling featuring deep, warm golden LED cove lighting in a single recess.**">
+                <img src="gyp11.jpg" alt="Close-up of a smooth gypsum ceiling featuring deep, warm golden LED cove lighting in a single recess.">
             </div>
         </div>
-        
-    
+
+        <div class="project-card" data-category="gypsum-ceiling">
+            <div class="project-image">
+                <img src="G1.PNG" alt="Dramatic gypsum ceiling design with a blue illuminated recess and magenta feature walls, showcasing creative colored lighting.">
+            </div>
+        </div>
+        <div class="project-card" data-category="gypsum-ceiling">
+            <div class="project-image">
+                <img src="gyp11.jpg" alt="Close-up of a smooth gypsum ceiling featuring deep, warm golden LED cove lighting in a single recess.">
+            </div>
+        </div>
+
+
         <div class="project-card" data-category="gypsum-installation">
             <div class="project-image">
-                <img src="gypsuminstallation1.jpg" alt="**Worker performing final checks on a detailed, finished gypsum ceiling with rectangular recesses and decorative ceiling vents.**">
+                <img src="gypsuminstallation1.jpg" alt="Worker performing final checks on a detailed, finished gypsum ceiling with rectangular recesses and decorative ceiling vents.">
             </div>
         </div>
         <div class="project-card" data-category="gypsum-installation">
             <div class="project-image">
-                <img src="gypsuminstallation2.jpg" alt="**Construction workers in safety vests installing curved metal framing for a new gypsum board ceiling.**">
+                <img src="gypsuminstallation2.jpg" alt="Construction workers in safety vests installing curved metal framing for a new gypsum board ceiling.">
             </div>
         </div>
             <div class="project-card" data-category="gypsum-installation">
                 <div class="project-image">
-                    <img src="gypsuminstallation3.jpg" alt="**Construction worker skimming or smoothing a wall surface during the interior finishing process.**">
+                    <img src="gypsuminstallation3.jpg" alt="Construction worker skimming or smoothing a wall surface during the interior finishing process.">
                 </div>
             </div>
             <div class="project-card" data-category="gypsum-installation">
                 <div class="project-image">
-                    <img src="gypsuminstallation4.jpg" alt="**Worker installing light gray kitchen cabinets and a marble-look countertop and backsplash during a kitchen renovation.**">
+                    <img src="gypsuminstallation4.jpg" alt="Worker installing light gray kitchen cabinets and a marble-look countertop and backsplash during a kitchen renovation.">
                 </div>
             </div>
            
 
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w1.jpg" alt="**Elegant entryway with a dark wood door and paneling, modern tiered wall lights, and a brass console table.**">
+                <img src="w1.jpg" alt="Elegant entryway with a dark wood door and paneling, modern tiered wall lights, and a brass console table.">
             </div>
 
         </div>
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                 <img src="w4.jpg" alt="**Modern living room feature wall with a large TV, white media console, textured gold geometric wallpaper, and dark curtains.**"> 
-            </div>
-    
-        </div>
-
-        <div class="project-card" data-category="wallpaper">
-            <div class="project-image">
-                <img src="w2.jpg" alt="**Warm-toned entryway with chevron patterned wood paneling, a dark brown door, and striking tiered wall sconces.**"> 
+                 <img src="w4.jpg" alt="Modern living room feature wall with a large TV, white media console, textured gold geometric wallpaper, and dark curtains."> 
             </div>
     
         </div>
 
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w6.jpg" alt="**Contemporary living room with a black and dark gray feature wall, large TV, and white floating media cabinet.**">
+                <img src="w2.jpg" alt="Warm-toned entryway with chevron patterned wood paneling, a dark brown door, and striking tiered wall sconces."> 
+            </div>
+    
+        </div>
+
+        <div class="project-card" data-category="wallpaper">
+            <div class="project-image">
+                <img src="w6.jpg" alt="Contemporary living room with a black and dark gray feature wall, large TV, and white floating media cabinet.">
             </div>
 
         </div>
 
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w3.jpg" alt="**Inviting entryway with light brown wood paneling, a gold console, and sculptural wall lighting.**">
+                <img src="w3.jpg" alt="Inviting entryway with light brown wood paneling, a gold console, and sculptural wall lighting.">
             </div>
         </div>
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w7.jpg" alt="**Dramatic living room with a black feature wall contrasting a striking black and gold veined marble accent panel behind the TV.**">
+                <img src="w7.jpg" alt="Dramatic living room with a black feature wall contrasting a striking black and gold veined marble accent panel behind the TV.">
             </div>
         </div>
         <div class="project-card" data-category="wallpaper">
         <div class="project-image">
-                <img src="w9.jpg" alt="**Warm light wood modern hallway niche with ambient lighting, white marble floor, and two textured poufs.**">
+                <img src="w9.jpg" alt="Warm light wood modern hallway niche with ambient lighting, white marble floor, and two textured poufs.">
             </div>
         </div>
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w8.jpg" alt="**Minimalist dark gray entryway with a sleek front door, modern geometric wall sconces, and a textured pouf.**"> 
+                <img src="w8.jpg" alt="Minimalist dark gray entryway with a sleek front door, modern geometric wall sconces, and a textured pouf."> 
             </div>
         </div>
         
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w11.jpg" alt="**Bright, modern bedroom with light wood paneling, a marble accent wall, neutral bedding, and a simple bedside table.**"> 
+                <img src="w11.jpg" alt="Bright, modern bedroom with light wood paneling, a marble accent wall, neutral bedding, and a simple bedside table."> 
             </div>
         </div>
         <div class="project-card" data-category="wallpaper">
             <div class="project-image">
-                <img src="w10.jpg" alt="**Luxurious bedroom with neutral and light wood tones, featuring a striking blue and gold marble art panel above the bed.**"> 
+                <img src="w10.jpg" alt="Luxurious bedroom with neutral and light wood tones, featuring a striking blue and gold marble art panel above the bed."> 
             </div>
         </div>
 
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d3.jpg" alt="**3D render of a built-in wardrobe interior with open shelving and dark gray drawer units at the bottom.**">
+                    <img src="3d3.jpg" alt="3D render of a built-in wardrobe interior with open shelving and dark gray drawer units at the bottom.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d4.jpg" alt="**Wider 3D render of a large built-in closet with extensive open shelving and gray drawer space.**">
+                    <img src="3d4.jpg" alt="Wider 3D render of a large built-in closet with extensive open shelving and gray drawer space.">
                 </div>
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d1.PNG" alt="**Detailed 3D aerial view of a complete two-bedroom apartment floor plan with furniture layout and decor.**">
+                    <img src="3d1.PNG" alt="Detailed 3D aerial view of a complete two-bedroom apartment floor plan with furniture layout and decor.">
                 </div>
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d5.jpg" alt="**Spacious modern kitchen 3D render with dark gray glossy cabinets, a large window, and a white side-by-side refrigerator.**">
+                    <img src="3d5.jpg" alt="Spacious modern kitchen 3D render with dark gray glossy cabinets, a large window, and a white side-by-side refrigerator.">
                 </div>
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d2.PNG" alt="**3D floor plan of a multi-level house's lower floor, showing the living area, kitchen island, and dining space.**">
+                    <img src="3d2.PNG" alt="3D floor plan of a multi-level house's lower floor, showing the living area, kitchen island, and dining space.">
                 </div>
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d6.jpg" alt="**Modern U-shaped kitchen 3D render with dark gray cabinets, a white refrigerator, and a marble backsplash accent near the cooking range.**">
-                </div>
-                
-            </div>
-            <div class="project-card" data-category="3d-renders">
-                <div class="project-image">
-                    <img src="3d7.jpg" alt="**L-shaped modern kitchen 3D render with dark gray glossy cabinets, white countertops, and a maroon door accent.**">
+                    <img src="3d6.jpg" alt="Modern U-shaped kitchen 3D render with dark gray cabinets, a white refrigerator, and a marble backsplash accent near the cooking range.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d8.jpg" alt="**Wide shot 3D render of a modern kitchen with a large window, dark cabinets, and white countertop space.**">
+                    <img src="3d7.jpg" alt="L-shaped modern kitchen 3D render with dark gray glossy cabinets, white countertops, and a maroon door accent.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d9.jpg" alt="**Close-up 3D render of the kitchen sink area with dark cabinets, a white countertop, and large windows.**">
+                    <img src="3d8.jpg" alt="Wide shot 3D render of a modern kitchen with a large window, dark cabinets, and white countertop space.">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d9.jpg" alt="Close-up 3D render of the kitchen sink area with dark cabinets, a white countertop, and large windows.">
                 </div>
             </div>    
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3s2.jpg" alt="**3D render of a built-in wardrobe interior with extensive open cubby shelving and integrated dark gray drawers.**">
+                    <img src="3s2.jpg" alt="3D render of a built-in wardrobe interior with extensive open cubby shelving and integrated dark gray drawers.">
                 </div>
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d10.jpg" alt="**Luxury modern kitchen 3D render showing an expansive white countertop and a sleek lighting fixture above the workspace.**">
+                    <img src="3d10.jpg" alt="Luxury modern kitchen 3D render showing an expansive white countertop and a sleek lighting fixture above the workspace.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d11.jpg" alt="**Full perspective 3D render of the modern kitchen showing the U-shaped layout, dark cabinets, and large windows.**">
+                    <img src="3d11.jpg" alt="Full perspective 3D render of the modern kitchen showing the U-shaped layout, dark cabinets, and large windows.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d.jpg" alt="**3D render of a single-story house exterior with a steep, dark blue/gray pitched roof and light gray walls.**">
+                    <img src="3d.jpg" alt="3D render of a single-story house exterior with a steep, dark blue/gray pitched roof and light gray walls.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d12.jpg" alt="**Modern kitchen 3D render with glossy dark gray lower cabinets, white countertops, stainless steel appliances, and a red door accent.**">
+                    <img src="3d12.jpg" alt="Modern kitchen 3D render with glossy dark gray lower cabinets, white countertops, stainless steel appliances, and a red door accent.">
                 </div>
                 
             </div>
             <div class="project-card" data-category="3d-renders">
                 <div class="project-image">
-                    <img src="3d13.jpg" alt="**Real-life photo of a finished small kitchen with light gray lower cabinets, white upper cabinets, black countertops, and a steel sink.**">
+                    <img src="3d13.jpg" alt="Real-life photo of a finished small kitchen with light gray lower cabinets, white upper cabinets, black countertops, and a steel sink.">
                 </div>
                 
             </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d20.jpg" alt="3D kitchen render with dark speckled counter and wood cabinets.">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d21.jpg" alt="3D render U-shaped kitchen with beige cabinets and marble island.">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d22.jpg" alt="Overhead 3D kitchen floor plan showing island layout.">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d23.jpg" alt="3D kitchen render with marble island and open wood shelving.">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d24.jpg" alt="3D render wide kitchen with beige shaker cabinets and marble island.">
+                </div>
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d25.jpg" alt="3D kitchen render with beige cabinets and marble backsplash.">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d26.jpg" alt="3D wardrobe render with shoe shelving and gray cabinets.">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d27.jpg" alt="3D wardrobe render with gray and white paneling.">
+                </div>
+                
+            </div>
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d28.jpg" alt="3D render wood-grain wardrobe with open shelves and drawers.">
+                </div>
+            </div>   
+            <div class="project-card" data-category="3d-renders">
+                <div class="project-image">
+                    <img src="3d29.jpg" alt="3D render wood-grain wardrobe next to built-in oven tower.">
+                </div>
+            </div>   
             <div class="project-card" data-category="home">
                 <div class="project-image">
-                    <img src="h1.jpg" alt="**Modern interior space with clean white walls, recessed ceiling lights, and two large windows with security grilles.**">
+                    <img src="h1.jpg" alt="Modern interior space with clean white walls, recessed ceiling lights, and two large windows with security grilles.">
                 </div>
             </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h2.jpg" alt="**Recently completed single-story house exterior with a gray facade, white trim, red pitched roof, and manicured yard.**">
+                <img src="h2.jpg" alt="Recently completed single-story house exterior with a gray facade, white trim, red pitched roof, and manicured yard.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h3.jpg" alt="**Close-up of classic wall paneling and decorative wainscoting with geometric picture frame molding on a white wall.**">
+                <img src="h3.jpg" alt="Close-up of classic wall paneling and decorative wainscoting with geometric picture frame molding on a white wall.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h4.jpg" alt="**Finished room interior with classic white wainscoting, decorative molding, recessed ceiling lights, and hexagonal wall mirrors.**">
+                <img src="h4.jpg" alt="Finished room interior with classic white wainscoting, decorative molding, recessed ceiling lights, and hexagonal wall mirrors.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h5.jpg" alt="**Wide view of a finished room showcasing extensive white wall molding and decorative wainscoting, with a dark wood door.**">
+                <img src="h5.jpg" alt="Wide view of a finished room showcasing extensive white wall molding and decorative wainscoting, with a dark wood door.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="homedecor1.jpg" alt="**Luxury finished living room with a stone fireplace, ornate chandelier, decorative ceiling tray, and large windows with a view.**">
+                <img src="homedecor1.jpg" alt="Luxury finished living room with a stone fireplace, ornate chandelier, decorative ceiling tray, and large windows with a view.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="homedecor2.jpg" alt="**View of a light-colored natural stone fireplace against a plain white wall and large black-framed exterior windows.**">
+                <img src="homedecor2.jpg" alt="View of a light-colored natural stone fireplace against a plain white wall and large black-framed exterior windows.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="homedecor3.jpg" alt="**Custom dark brown shelving unit with mirrored backing and integrated warm LED lighting, possibly a bar or display cabinet.**">
+                <img src="homedecor3.jpg" alt="Custom dark brown shelving unit with mirrored backing and integrated warm LED lighting, possibly a bar or display cabinet.">
             </div>
         </div>
 
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h6.jpg" alt="**Close-up of a wall with a prominent natural stone veneer accent panel surrounded by a light beige painted border.**">
+                <img src="h6.jpg" alt="Close-up of a wall with a prominent natural stone veneer accent panel surrounded by a light beige painted border.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h7.jpg" alt="**Hallway with light gray walls and several identical white paneled interior doors with dark hardware.**">
+                <img src="h7.jpg" alt="Hallway with light gray walls and several identical white paneled interior doors with dark hardware.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h8.jpg" alt="**Wider view of a hallway featuring multiple white paneled interior doors against a light gray wall color.**">
+                <img src="h8.jpg" alt="Wider view of a hallway featuring multiple white paneled interior doors against a light gray wall color.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h9.jpg" alt="**Angle shot of a hallway showing a seamless installation of multiple white interior doors with contrast hardware.**">
+                <img src="h9.jpg" alt="Angle shot of a hallway showing a seamless installation of multiple white interior doors with contrast hardware.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h10.jpg" alt="**Modern living room feature wall with an onyx or marble panel, built-in TV niche, and recessed lighting.**">
+                <img src="h10.jpg" alt="Modern living room feature wall with an onyx or marble panel, built-in TV niche, and recessed lighting.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h11.jpg" alt="**Exterior view of a multi-story house facade with textured beige stucco, decorative curved trim, and dark-framed wooden windows.**">
+                <img src="h11.jpg" alt="Exterior view of a multi-story house facade with textured beige stucco, decorative curved trim, and dark-framed wooden windows.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h12.jpg" alt="**Close-up of a worker installing or cleaning a large wooden window frame and glass on a beige exterior wall.**">
+                <img src="h12.jpg" alt="Close-up of a worker installing or cleaning a large wooden window frame and glass on a beige exterior wall.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h13.jpg" alt="**Finished room interior with classic white wainscoting, decorative molding, recessed ceiling lights, and hexagonal wall mirrors.**">
+                <img src="h13.jpg" alt="Finished room interior with classic white wainscoting, decorative molding, recessed ceiling lights, and hexagonal wall mirrors.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h14.jpg" alt="**Living room interior under construction with a large stone veneer fireplace mantel and surrounding wall, next to a large window.**">
+                <img src="h14.jpg" alt="Living room interior under construction with a large stone veneer fireplace mantel and surrounding wall, next to a large window.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h16.jpg" alt="**Close-up of a rustic stone veneer fireplace and mantelpiece with outlets installed on the stone surface.**">
+                <img src="h16.jpg" alt="Close-up of a rustic stone veneer fireplace and mantelpiece with outlets installed on the stone surface.">
             </div>
         </div>
        <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h17.jpg" alt="**Finished interior room view highlighting the prominent stone veneer fireplace and a light-filled space with large glass doors.**">
+                <img src="h17.jpg" alt="Finished interior room view highlighting the prominent stone veneer fireplace and a light-filled space with large glass doors.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h18.jpg" alt="**Close-up of a white bathroom vanity countertop with an oval vessel sink and dark contrasting cabinet handles.**">
+                <img src="h18.jpg" alt="Close-up of a white bathroom vanity countertop with an oval vessel sink and dark contrasting cabinet handles.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h19.jpg" alt="**Simple interior view of a room with a natural wood-grain paneled door and a clean white wall finish.**">
+                <img src="h19.jpg" alt="Simple interior view of a room with a natural wood-grain paneled door and a clean white wall finish.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h20.jpg" alt="**Modern bathroom vanity with a white cabinet, vessel sink, and chrome single-lever faucet.**">
+                <img src="h20.jpg" alt="Modern bathroom vanity with a white cabinet, vessel sink, and chrome single-lever faucet.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h21.jpg" alt="**Modern bathroom with a vessel sink, single-lever faucet, tiled wall, and a rectangular mirror with integrated lighting.**">
+                <img src="h21.jpg" alt="Modern bathroom with a vessel sink, single-lever faucet, tiled wall, and a rectangular mirror with integrated lighting.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h22.jpg" alt="**Exterior view of a window protected by a white retractable security grille/gate set into a stone brick wall.**">
+                <img src="h22.jpg" alt="Exterior view of a window protected by a white retractable security grille/gate set into a stone brick wall.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h23.jpg" alt="**Modern bathroom vanity area showing a vessel sink, chrome faucet, and rectangular mirror mounted over tiled walls.**">
+                <img src="h23.jpg" alt="Modern bathroom vanity area showing a vessel sink, chrome faucet, and rectangular mirror mounted over tiled walls.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h24.jpg" alt="**Modern bathroom with a glass shower enclosure, white wall tiles, and a contrasting wooden interior door.**">
+                <img src="h24.jpg" alt="Modern bathroom with a glass shower enclosure, white wall tiles, and a contrasting wooden interior door.">
             </div>
         </div>
        <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h25.jpg" alt="**Exterior view of a building with stone cladding around large black-framed sliding glass patio doors opening to a balcony.**">
+                <img src="h25.jpg" alt="Exterior view of a building with stone cladding around large black-framed sliding glass patio doors opening to a balcony.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h26.jpg" alt="**Modern bathroom vanity with a white countertop, vessel sink, single-lever faucet, and mirrored cabinet above.**">
+                <img src="h26.jpg" alt="Modern bathroom vanity with a white countertop, vessel sink, single-lever faucet, and mirrored cabinet above.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h27.jpg" alt="**Modern white kitchen with black accents, built-in oven and microwave, and accent lighting above the cooktop area.**">
+                <img src="h27.jpg" alt="Modern white kitchen with black accents, built-in oven and microwave, and accent lighting above the cooktop area.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h28.jpg" alt="**Close-up of a black four-burner gas cooktop with heavy-duty grates installed in a white countertop.**">
+                <img src="h28.jpg" alt="Close-up of a black four-burner gas cooktop with heavy-duty grates installed in a white countertop.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h29.jpg" alt="**Modern white kitchen base cabinets with a black countertop, integrated sink, and black pull-down faucet.**">
+                <img src="h29.jpg" alt="Modern white kitchen base cabinets with a black countertop, integrated sink, and black pull-down faucet.">
             </div>
         </div>
         <div class="project-card" data-category="home">
             <div class="project-image">
-                <img src="h31.jpg" alt="**Open plan living area showing modern white kitchen cabinets with black accents and a large built-in wardrobe with a vanity nook.**">
+                <img src="h31.jpg" alt="Open plan living area showing modern white kitchen cabinets with black accents and a large built-in wardrobe with a vanity nook.">
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch3.jpg" alt="**Close-up of a modern white high-gloss kitchen cabinet with a pull-out inner drawer and dark speckled granite countertop**">
+                <img src="kitch3.jpg" alt="Close-up of a modern white high-gloss kitchen cabinet with a pull-out inner drawer and dark speckled granite countertop">
             </div>
         </div>
   
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch4.jpg" alt="**Completed L-shaped modern kitchen with white cabinets, wood accent panel, black backsplash, and stainless steel appliances**">
+                <img src="kitch4.jpg" alt="Completed L-shaped modern kitchen with white cabinets, wood accent panel, black backsplash, and stainless steel appliances">
             </div>
 
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                 <img src="kitch5.jpg" alt="**Modern kitchen detail showing white drawers with gold trim and integrated handles, under a gas hob. Includes pull-out storage.**"> 
-            </div>
-    
-        </div>
-
-        <div class="project-card" data-category="kitchen">
-            <div class="project-image">
-                <img src="kict5.0.jpg" alt="**White modern kitchen installation showing a swing-out corner cabinet solution with gold trim detailing.**"> 
+                 <img src="kitch5.jpg" alt="Modern kitchen detail showing white drawers with gold trim and integrated handles, under a gas hob. Includes pull-out storage."> 
             </div>
     
         </div>
 
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch6.jpg" alt="**Modern white kitchen with patterned backsplash tile and upper cabinets featuring a black grid/shaker style glass front.**">
+                <img src="kict5.0.jpg" alt="White modern kitchen installation showing a swing-out corner cabinet solution with gold trim detailing."> 
+            </div>
+    
+        </div>
+
+        <div class="project-card" data-category="kitchen">
+            <div class="project-image">
+                <img src="kitch6.jpg" alt="Modern white kitchen with patterned backsplash tile and upper cabinets featuring a black grid/shaker style glass front.">
             </div>
 
         </div>
 
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch7.jpg" alt="**High-end 3D render of a spacious white modern kitchen with an island, sleek integrated appliances, and large windows.**">
+                <img src="kitch7.jpg" alt="High-end 3D render of a spacious white modern kitchen with an island, sleek integrated appliances, and large windows.">
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch8.jpg" alt="**U-shaped kitchen installation in progress with white and light gray cabinets, black countertops, and a stainless steel hood.**"> 
+                <img src="kitch8.jpg" alt="U-shaped kitchen installation in progress with white and light gray cabinets, black countertops, and a stainless steel hood."> 
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
         <div class="project-image">
-                <img src="kitch9.jpg" alt="**Modern kitchen installation showing a double sink, black countertop, open shelving, and a large window above the prep area.**"> 
+                <img src="kitch9.jpg" alt="Modern kitchen installation showing a double sink, black countertop, open shelving, and a large window above the prep area."> 
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch10.jpg" alt="**Completed modern kitchen with white handleless drawers, black countertops, and a black built-in oven and cooktop.**"> 
+                <img src="kitch10.jpg" alt="Completed modern kitchen with white handleless drawers, black countertops, and a black built-in oven and cooktop."> 
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch11.jpg" alt="**Close-up of a modern white kitchen countertop with a double basin sink and a black speckled countertop.**">
+                <img src="kitch11.jpg" alt="Close-up of a modern white kitchen countertop with a double basin sink and a black speckled countertop.">
             </div>
         </div>
 
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch12.jpg" alt="**L-shaped modern kitchen with wood-grain look laminate cabinets, black countertop, and a window above the range.**"> 
+                <img src="kitch12.jpg" alt="L-shaped modern kitchen with wood-grain look laminate cabinets, black countertop, and a window above the range."> 
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch13.jpg" alt="**Completed U-shaped modern kitchen with white cabinets, light gray flooring, and a built-in oven/cooktop unit.**"> 
+                <img src="kitch13.jpg" alt="Completed U-shaped modern kitchen with white cabinets, light gray flooring, and a built-in oven/cooktop unit."> 
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch14.jpg" alt="**Kitchen installation with warm wood base cabinets, a speckled dark countertop, and mosaic backsplash tiles.**"> 
+                <img src="kitch14.jpg" alt="Kitchen installation with warm wood base cabinets, a speckled dark countertop, and mosaic backsplash tiles."> 
             </div>
         </div>
        
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch15.jpg" alt="**Modern white glossy kitchen with gold handles, a bold marble-look quartz backsplash and countertop, and integrated cooktop.**"> 
+                <img src="kitch15.jpg" alt="Modern white glossy kitchen with gold handles, a bold marble-look quartz backsplash and countertop, and integrated cooktop."> 
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch16.jpg" alt="**Modern L-shaped kitchen with white cabinets, light wood countertop, and striking patterned Moroccan-style backsplash tiles.**">
+                <img src="kitch16.jpg" alt="Modern L-shaped kitchen with white cabinets, light wood countertop, and striking patterned Moroccan-style backsplash tiles.">
             </div>
         </div>
   
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch17.jpg" alt="**Tall unit cabinet design with integrated microwave, oven, and refrigerator next to warm wood cabinetry and a black finish.**">
+                <img src="kitch17.jpg" alt="Tall unit cabinet design with integrated microwave, oven, and refrigerator next to warm wood cabinetry and a black finish.">
             </div>
 
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                 <img src="kitch18.jpg" alt="**White glossy modern kitchen installation in progress with marble-look countertops, black handles, and a high backsplash.**">
+                 <img src="kitch18.jpg" alt="White glossy modern kitchen installation in progress with marble-look countertops, black handles, and a high backsplash.">
             </div>
     
         </div>
 
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch19.jpg" alt="**Completed modern kitchen with a large white marble-look island, a black sink, and a textured ribbed panel on the island base.**">
+                <img src="kitch19.jpg" alt="Completed modern kitchen with a large white marble-look island, a black sink, and a textured ribbed panel on the island base.">
             </div>
     
             
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch20.jpg" alt="**Modern U-shaped white kitchen with black bar handles, a black sink, and a high marble-look quartz backsplash.**">
+                <img src="kitch20.jpg" alt="Modern U-shaped white kitchen with black bar handles, a black sink, and a high marble-look quartz backsplash.">
             </div>
         </div>
      <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch22.jpg" alt="**Close-up of an integrated stainless steel dishwasher in a modern white kitchen with a marble-look floor and cabinet front.**">
+                <img src="kitch22.jpg" alt="Close-up of an integrated stainless steel dishwasher in a modern white kitchen with a marble-look floor and cabinet front.">
             </div>
     
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                 <img src="kitch23.jpg" alt="**White modern kitchen detail showing a black range hood and gas cooktop against a marble-look quartz backsplash.**">
+                 <img src="kitch23.jpg" alt="White modern kitchen detail showing a black range hood and gas cooktop against a marble-look quartz backsplash.">
             </div>
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch24.jpg" alt="**Long run of white modern base cabinets with black handles, a light gray speckled countertop, and a white tiled backsplash.**">
+                <img src="kitch24.jpg" alt="Long run of white modern base cabinets with black handles, a light gray speckled countertop, and a white tiled backsplash.">
             </div>
 
         </div>
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                 <img src="kitch25.jpg" alt="**Corner view of a white modern kitchen with a black under-mount sink, marble-look countertops, and black handle hardware.**">
+                 <img src="kitch25.jpg" alt="Corner view of a white modern kitchen with a black under-mount sink, marble-look countertops, and black handle hardware.">
             </div>
     
         </div>
         
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                 <img src="kitch26.jpg" alt="**Minimalist white modern kitchen with a seamless countertop, black wall-mounted extractor hood, and a black gas cooktop.**">
+                 <img src="kitch26.jpg" alt="Minimalist white modern kitchen with a seamless countertop, black wall-mounted extractor hood, and a black gas cooktop.">
             </div>
     
         </div>
 
         <div class="project-card" data-category="kitchen">
             <div class="project-image">
-                <img src="kitch25.0.jpg" alt="**White modern kitchen detail showing a black range hood and gas cooktop against a marble-look quartz backsplash.**">
+                <img src="kitch25.0.jpg" alt="White modern kitchen detail showing a black range hood and gas cooktop against a marble-look quartz backsplash.">
             </div>    
 
         </div>
-    </div>
+        </div>
 
         <div class="cta-form-section">
             <div class="cta-form-content">
@@ -2269,25 +1128,25 @@
             </div>
             <form action="https://formspree.io/f/xwprzeby" method="POST">
                 <div class="form-grid">
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" name="name" placeholder="Full Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" name="email" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" name="phone" placeholder="e.g. +254 712 345 678" required>
-                </div>
-                <div class="form-group full">
-                    <label>Project Subject</label>
-                    <textarea type="text" name="subject" placeholder="Describe your project..." required></textarea>
-                </div>
-                <div class="form-submit">
-                    <button type="submit">Send Inquiry</button>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" placeholder="e.g. +254 712 345 678" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Project Subject</label>
+                        <textarea name="subject" placeholder="Describe your project..." required></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit">Send Inquiry</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -2301,27 +1160,27 @@
         <div class="consultancy-container">
             <div class="consultancy-form">
                 <h3>Request A Consultation</h3>
-<form action="https://formspree.io/f/mjkazbrn" method="POST">
-    <div class="form-group full">
-        <label>Your Email Address</label>
-        <input type="email" name="email" placeholder="your@email.com" required>
-    </div>
-    <div class="form-group full">
-        <label>Subject</label>
-        <input type="text" name="subject" placeholder="How can we help you?" required>
-    </div>
-    <div class="form-group full">
-        <label>Your Budget</label>
-        <input type="text" name="budget" placeholder="What's your budget?" required>
-    </div>
-    <div class="form-group full">
-        <label>Tell Us About Your Project</label>
-        <textarea name="project" placeholder="Describe your project in detail..." required></textarea>
-    </div>
-    <div class="form-submit">
-        <button type="submit">Send Message</button>
-    </div>
-</form>
+                <form action="https://formspree.io/f/mjkazbrn" method="POST">
+                    <div class="form-group full">
+                        <label>Your Email Address</label>
+                        <input type="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Subject</label>
+                        <input type="text" name="subject" placeholder="How can we help you?" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Your Budget</label>
+                        <input type="text" name="budget" placeholder="What's your budget?" required>
+                    </div>
+                    <div class="form-group full">
+                        <label>Tell Us About Your Project</label>
+                        <textarea name="project" placeholder="Describe your project in detail..." required></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
             </div>
 
             <div class="consultancy-info">
@@ -2333,7 +1192,6 @@
                     <div>
                         <strong style="display: block; margin-bottom: 0.5rem;">Phone Numbers</strong>
                         <a href="tel:+254729747047">+254 729 747 047</a><br>
-                        
                     </div>
                 </div>
 
@@ -2386,159 +1244,12 @@
         <p>&copy; 2025 AJ Interior Studio. All rights reserved. | Transforming Spaces, Creating Experiences</p>
     </footer>
 
-    <script>
-
-        
-        // ===== MOBILE TAB MODE FUNCTIONS =====
-function scrollToSection(id) {
-    const element = document.getElementById(id);
-    
-    if (window.innerWidth <= 768) {
-        enableMobileTabMode(id);
-    } else {
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-function enableMobileTabMode(sectionId) {
-    if (window.innerWidth > 768) return;
-    
-    // If Home is clicked, exit tab mode and go back to normal
-    if (sectionId === 'home') {
-        document.body.classList.remove('mobile-tab-mode');
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-    }
-    
-    document.body.classList.add('mobile-tab-mode');
-    
-    // Hide all sections
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.remove('active-section');
-    });
-    
-    // Show the clicked section
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.classList.add('active-section');
-        addBackButton(section);
-        
-        // Scroll to section after a short delay
-        setTimeout(() => {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-    }
-}
-
-function addBackButton(section) {
-    // Remove any existing back button
-    const existingBtn = section.querySelector('.back-to-top-btn');
-    if (existingBtn) existingBtn.remove();
-    
-    // Create and insert new back button
-    const backBtn = document.createElement('button');
-    backBtn.className = 'back-to-top-btn';
-    backBtn.innerHTML = '← Back to Home';
-    backBtn.onclick = (e) => {
-        e.preventDefault();
-        document.body.classList.remove('mobile-tab-mode');
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-    
-    section.insertBefore(backBtn, section.firstChild);
-}
-
-// Handle window resize - exit tab mode on desktop
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        document.body.classList.remove('mobile-tab-mode');
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
-    }
-});
-
-// ===== HAMBURGER MENU =====
-function toggleMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    const hamburger = document.querySelector('.hamburger');
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
-}
-
-// Close menu when a navigation link is clicked
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('active');
-        document.querySelector('.hamburger').classList.remove('active');
-    });
-});
-
-// ===== SERVICES SIDEBAR =====
-function openServicesSidebar() {
-    document.getElementById('servicesSidebar').classList.add('active');
-    document.getElementById('sidebarOverlay').classList.add('active');
-}
-
-function closeSidebar() {
-    document.getElementById('servicesSidebar').classList.remove('active');
-    document.getElementById('sidebarOverlay').classList.remove('active');
-}
-
-// ===== SERVICES SCROLL =====
-function scrollToService(id) {
-    const element = document.getElementById(id);
-    element.scrollIntoView({ behavior: 'smooth' });
-}
-
-// ===== PROJECTS FILTER =====
-function filterProjects(category) {
-    const cards = document.querySelectorAll('.project-card');
-    const buttons = document.querySelectorAll('.filter-btn');
-
-    buttons.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-
-    cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-// ===== HERO SLIDER (PUT THIS AT THE END) =====
-let currentSlideIndex = 0;
-const slides = document.querySelectorAll('.hero-slide');
-const dots = document.querySelectorAll('.dot');
-
-function autoSlide() {
-    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-    updateSlide();
-}
-
-function currentSlide(n) {
-    currentSlideIndex = n;
-    updateSlide();
-}
-
-function updateSlide() {
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    slides[currentSlideIndex].classList.add('active');
-    dots[currentSlideIndex].classList.add('active');
-}
-
-setInterval(autoSlide, 6000);
-    </script>
-
-
-
     <div class="floating-buttons">
         <a href="https://wa.me/254729747047" class="floating-btn whatsapp-btn" target="_blank">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
